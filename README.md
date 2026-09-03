@@ -34,6 +34,8 @@ Auction is a Base44 application focused on item valuation and auction/marketplac
 
 Repository: https://github.com/Justintech80s/Auction-
 
+Live Website: https://auctionsave.base44.app
+
 The public repository currently contains the project's architecture, data-quality standards, security direction, and staged engineering roadmap. The working Base44 source will be mirrored only after source access is available and the code can be sanitized safely.
 
 ### Bunny Noir — Cinematic Stealth Game
