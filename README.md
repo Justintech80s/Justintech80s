@@ -18,6 +18,8 @@ MovieFinder is the flagship project: an intelligent movie and streaming discover
 
 Repository: https://github.com/Justintech80s/MovieFinder
 
+Live Website: https://getmoviefinder.vercel.app/
+
 ### Auction — Marketplace Pricing Intelligence
 Auction is a Base44 application focused on item valuation and auction/marketplace research. Its product direction is to turn fragmented marketplace information into clearer pricing evidence, including a meaningful distinction between asking prices and verified sold-price evidence when available.
 
