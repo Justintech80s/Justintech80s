@@ -63,6 +63,18 @@ Repository: https://github.com/Justintech80s/rock-paper-scissors
 
 This portfolio is focused on projects that can grow beyond demos into useful software products: AI-assisted search, knowledge systems, recommendation and discovery engines, marketplace intelligence, intelligent media software, and interactive entertainment.
 
+## Support My Projects
+
+If you enjoy these projects and want to support continued development, support is completely optional.
+
+**PayPal:** https://www.paypal.biz/Justsaving
+
+**Bitcoin (BTC):** `35pjN4cz6XHpGyyEBAgSAAjuDTbwLK4iSU`
+
+**Ethereum (ETH):** `0x8AdE34252Ef275b2b503387209e0f56056D29A34`
+
+Please double-check the destination before sending cryptocurrency. Cryptocurrency transactions generally cannot be reversed.
+
 ## Portfolio Principle
 
 Build in public. Improve continuously. Document what is real. Turn promising experiments into serious products.
