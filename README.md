@@ -19,6 +19,16 @@ KidOS is an ambitious child-focused computing platform designed to provide a fam
 
 Repository: https://github.com/Justintech80s/KidOS
 
+### KidOS UI Concept Previews
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Justintech80s/KidOS/main/9A0264C6-F366-48D6-825E-ADDA0B1C8505.png" alt="KidOS child-safe desktop concept" width="100%" />
+</p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Justintech80s/KidOS/main/BFB02781-33F0-4920-8C3F-18735168ACD4.png" alt="KidOS child-safe desktop alternate concept" width="100%" />
+</p>
+
 > **Design target:** KidOS is being developed toward a polished, child-friendly operating-system experience. Concept UI previews are being prepared for this profile and the project documentation.
 
 ### MovieFinder — Intelligent Cinema Search
