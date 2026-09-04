@@ -4,6 +4,23 @@ Building intelligent software, search systems, experimental applications, and ci
 
 ## Featured Projects
 
+### KidOS — AI-Powered Child-Safe Computing Environment
+KidOS is an ambitious child-focused computing platform designed to provide a familiar, full-screen desktop experience while enforcing safety at the system, app, browser, and media layers.
+
+**Engineering direction:**
+- Kid-friendly desktop and application shell
+- Parent-controlled profiles, permissions, and approval flows
+- Safe browsing and search enforcement
+- AI-assisted image and video safety classification
+- Policy engine for allow, block, restrict, and parent-review decisions
+- Windows lockdown / Assigned Access integration
+- Guardian service and tamper-resistance architecture
+- Secure settings, logging, and recovery controls
+
+Repository: https://github.com/Justintech80s/KidOS
+
+> **Design target:** KidOS is being developed toward a polished, child-friendly operating-system experience. Concept UI previews are being prepared for this profile and the project documentation.
+
 ### MovieFinder — Intelligent Cinema Search
 MovieFinder is the flagship project: an intelligent movie and streaming discovery system focused on natural-language search, filmography intelligence, cinema relationships, ranking, verification, and current availability.
 
