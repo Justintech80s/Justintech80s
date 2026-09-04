@@ -4,32 +4,40 @@ Building intelligent software, search systems, experimental applications, and ci
 
 ## Featured Projects
 
-### KidOS — AI-Powered Child-Safe Computing Environment
-KidOS is an ambitious child-focused computing platform designed to provide a familiar, full-screen desktop experience while enforcing safety at the system, app, browser, and media layers.
+# 🛡️ KidOS
+## AI-Powered Child-Safe Computing Environment
 
-**Engineering direction:**
-- Kid-friendly desktop and application shell
-- Parent-controlled profiles, permissions, and approval flows
-- Safe browsing and search enforcement
-- AI-assisted image and video safety classification
-- Policy engine for allow, block, restrict, and parent-review decisions
-- Windows lockdown / Assigned Access integration
-- Guardian service and tamper-resistance architecture
-- Secure settings, logging, and recovery controls
-
-Repository: https://github.com/Justintech80s/KidOS
-
-### KidOS UI Concept Previews
+**A child-first computing platform built around safety, parental control, AI-assisted media protection, and a full-screen desktop experience.**
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Justintech80s/KidOS/main/9A0264C6-F366-48D6-825E-ADDA0B1C8505.png" alt="KidOS child-safe desktop concept" width="100%" />
+  <a href="https://github.com/Justintech80s/KidOS"><strong>VIEW THE KidOS PROJECT →</strong></a>
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Justintech80s/KidOS/main/BFB02781-33F0-4920-8C3F-18735168ACD4.png" alt="KidOS child-safe desktop alternate concept" width="100%" />
+  <img src="https://raw.githubusercontent.com/Justintech80s/KidOS/main/9A0264C6-F366-48D6-825E-ADDA0B1C8505.png" alt="KidOS desktop concept" width="100%" />
 </p>
 
-> **Design target:** KidOS is being developed toward a polished, child-friendly operating-system experience. Concept UI previews are being prepared for this profile and the project documentation.
+<p align="center"><strong>KidOS Desktop — Target UI Concept</strong></p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Justintech80s/KidOS/main/BFB02781-33F0-4920-8C3F-18735168ACD4.png" alt="KidOS alternate desktop concept" width="100%" />
+</p>
+
+<p align="center"><strong>KidOS Desktop — Alternate Target UI Concept</strong></p>
+
+### Core Engineering Direction
+- 🧒 Kid-friendly desktop and application shell
+- 👨‍👩‍👧 Parent-controlled profiles, permissions, and approval flows
+- 🌐 Safe browsing and search enforcement
+- 🤖 AI-assisted image and video safety classification
+- 🛡️ Policy engine for allow, block, restrict, and parent-review decisions
+- 🔒 Windows lockdown / Assigned Access integration
+- ⚙️ Guardian service and tamper-resistance architecture
+- 🔐 Secure settings, logging, and recovery controls
+
+> **Development status:** These images represent the target KidOS interface. The repository documents and implements the underlying system incrementally as development continues.
+
+---
 
 ### MovieFinder — Intelligent Cinema Search
 MovieFinder is the flagship project: an intelligent movie and streaming discovery system focused on natural-language search, filmography intelligence, cinema relationships, ranking, verification, and current availability.
