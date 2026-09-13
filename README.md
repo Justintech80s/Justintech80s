@@ -39,6 +39,29 @@ Building intelligent software, search systems, experimental applications, and ci
 
 ---
 
+### Approach — Intent-Driven Social Platform
+Approach is a next-generation social platform designed to turn online attention into meaningful interaction, opportunity, and economic value. Instead of focusing primarily on passive likes and views, Approach lets people publish photos and videos with a specific intent—such as networking, collaboration, advice, business, buying, selling, or connecting with creators.
+
+**Product and engineering direction:**
+- Intent-driven photo and video posts called Approaches
+- Profiles, following, messaging, comments, likes, and saves
+- Photo/video capture with browser and native-device fallback
+- Universal links and destinations attached to content
+- Creator and business commerce architecture
+- AI-assisted best-frame selection for video
+- Intelligent feed-ranking and interaction services
+- MFA/AAL2-protected financial settings
+- Account, device, and session security controls
+- Progressive Web App and service-worker support
+
+> **Core idea:** Instagram monetizes attention. Approach is designed to monetize intent.
+
+Repository: https://github.com/Justintech80s/Approach-Web
+
+Live Website: https://approach-alpha.vercel.app/
+
+---
+
 ### MovieFinder — Intelligent Cinema Search
 MovieFinder is the flagship project: an intelligent movie and streaming discovery system focused on natural-language search, filmography intelligence, cinema relationships, ranking, verification, and current availability.
 
