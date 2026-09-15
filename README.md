@@ -1,6 +1,6 @@
 # Justintech80s
 
-Building intelligent software, search systems, experimental applications, and cinematic interactive experiences.
+Building intelligent software, AI systems, experimental applications, and interactive products.
 
 ## Featured Projects
 
@@ -9,125 +9,79 @@ Building intelligent software, search systems, experimental applications, and ci
 
 **A child-first computing platform built around safety, parental control, AI-assisted media protection, and a full-screen desktop experience.**
 
-<p align="center">
-  <a href="https://github.com/Justintech80s/KidOS"><strong>VIEW THE KidOS PROJECT →</strong></a>
-</p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Justintech80s/KidOS/main/9A0264C6-F366-48D6-825E-ADDA0B1C8505.png" alt="KidOS desktop concept" width="100%" />
-</p>
-
-<p align="center"><strong>KidOS Desktop — Target UI Concept</strong></p>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Justintech80s/KidOS/main/BFB02781-33F0-4920-8C3F-18735168ACD4.png" alt="KidOS alternate desktop concept" width="100%" />
-</p>
-
-<p align="center"><strong>KidOS Desktop — Alternate Target UI Concept</strong></p>
+[VIEW THE KidOS PROJECT →](https://github.com/Justintech80s/KidOS)
 
 ### Core Engineering Direction
-- 🧒 Kid-friendly desktop and application shell
-- 👨‍👩‍👧 Parent-controlled profiles, permissions, and approval flows
-- 🌐 Safe browsing and search enforcement
-- 🤖 AI-assisted image and video safety classification
-- 🛡️ Policy engine for allow, block, restrict, and parent-review decisions
-- 🔒 Windows lockdown / Assigned Access integration
-- ⚙️ Guardian service and tamper-resistance architecture
-- 🔐 Secure settings, logging, and recovery controls
+- Kid-friendly desktop and application shell
+- Parent-controlled profiles, permissions, and approval flows
+- Safe browsing and search enforcement
+- AI-assisted image and video safety classification
+- Policy engine for allow, block, restrict, and parent-review decisions
+- Windows lockdown / Assigned Access integration
+- Guardian service and tamper-resistance architecture
+- Secure settings, logging, and recovery controls
 
-> **Development status:** These images represent the target KidOS interface. The repository documents and implements the underlying system incrementally as development continues.
+> **Development status:** KidOS is under active development. The repository documents and implements the underlying system incrementally.
 
 ---
 
 ### Approach — Intent-Driven Social Platform
-Approach is a next-generation social platform designed to turn online attention into meaningful interaction, opportunity, and economic value. Instead of focusing primarily on passive likes and views, Approach lets people publish photos and videos with a specific intent—such as networking, collaboration, advice, business, buying, selling, or connecting with creators.
+Approach is designed to turn online attention into meaningful interaction, opportunity, and economic value. People can publish photos and videos with a specific intent such as networking, collaboration, advice, business, buying, selling, or connecting with creators.
 
-**Product and engineering direction:**
-- Intent-driven photo and video posts called Approaches
-- Profiles, following, messaging, comments, likes, and saves
-- Photo/video capture with browser and native-device fallback
-- Universal links and destinations attached to content
-- Creator and business commerce architecture
-- AI-assisted best-frame selection for video
-- Intelligent feed-ranking and interaction services
-- MFA/AAL2-protected financial settings
-- Account, device, and session security controls
-- Progressive Web App and service-worker support
+**Product and engineering direction:** intent-driven posts, profiles, messaging, photo/video capture, universal links, creator commerce, AI-assisted media features, feed ranking, account security, and PWA support.
 
 > **Core idea:** Instagram monetizes attention. Approach is designed to monetize intent.
 
-Repository: https://github.com/Justintech80s/Approach-Web
-
+Repository: https://github.com/Justintech80s/Approach-Web  
 Live Website: https://approach-alpha.vercel.app/
 
 ---
 
 ### MovieFinder — Intelligent Cinema Search
-MovieFinder is the flagship project: an intelligent movie and streaming discovery system focused on natural-language search, filmography intelligence, cinema relationships, ranking, verification, and current availability.
+MovieFinder is an intelligent movie and streaming discovery system focused on natural-language search, filmography intelligence, cinema relationships, ranking, verification, and availability.
 
-**Engineering direction:**
-- Natural-language movie discovery
-- Person and filmography search
-- Streaming availability intelligence
-- Cinema relationship graph concepts
-- Search ranking and verification
-- Analytics and search-quality improvements
-- Python-backed Cinema Brain experimentation
+**Engineering direction:** natural-language discovery, filmography search, streaming availability, cinema relationship graphs, ranking and verification, analytics, and Python-backed Cinema Brain experimentation.
 
-Repository: https://github.com/Justintech80s/MovieFinder
-
+Repository: https://github.com/Justintech80s/MovieFinder  
 Live Website: https://getmoviefinder.vercel.app/
 
+---
+
 ### Auction — Marketplace Pricing Intelligence
-Auction is a Base44 application focused on item valuation and auction/marketplace research. Its product direction is to turn fragmented marketplace information into clearer pricing evidence, including a meaningful distinction between asking prices and verified sold-price evidence when available.
+Auction focuses on item valuation and marketplace research, turning fragmented marketplace information into clearer pricing evidence.
 
-**Engineering direction:**
-- Item upload and identification
-- Marketplace/search integrations
-- Price normalization
-- Asking-price versus sold-price evidence
-- Confidence-aware valuation
-- Duplicate and low-quality listing filtering
-- Privacy-safe upload handling
+**Engineering direction:** item identification, marketplace integrations, price normalization, asking-versus-sold evidence, confidence-aware valuation, duplicate filtering, and privacy-safe uploads.
 
-Repository: https://github.com/Justintech80s/Auction-
-
+Repository: https://github.com/Justintech80s/Auction-  
 Live Website: https://auctionsave.base44.app
 
-The public repository currently contains the project's architecture, data-quality standards, security direction, and staged engineering roadmap. The working Base44 source will be mirrored only after source access is available and the code can be sanitized safely.
+---
 
 ### Bunny Noir — Cinematic Stealth Game
 Bunny Noir is a noir-inspired 2D stealth-thriller prototype built around cinematic suspense, shadows, patrol avoidance, observation, and interactive stealth mechanics.
 
-**Development direction:**
-- Reusable stealth systems
-- Enemy patrol and detection logic
-- Visibility and shadow mechanics
-- Observation/voyeur systems
-- Cinematic puzzle scenarios
-- Testable game logic
-
 Repository: https://github.com/Justintech80s/Bunny
-
-## Experiments
-
-### NewProkect
-An incubator repository reserved for a future experimental software project. The project is intentionally early-stage and its direction will be documented as development begins.
-
-Repository: https://github.com/Justintech80s/NewProkect
-
-### Rock Paper Scissors
-A small experimental repository for exploring game logic, testing discipline, and software-development fundamentals.
-
-Repository: https://github.com/Justintech80s/rock-paper-scissors
 
 ## What I'm Building Toward
 
-This portfolio is focused on projects that can grow beyond demos into useful software products: AI-assisted search, knowledge systems, recommendation and discovery engines, marketplace intelligence, intelligent media software, and interactive entertainment.
+This portfolio is focused on projects that can grow beyond demos into useful software products: AI-assisted search, knowledge systems, recommendation and discovery engines, marketplace intelligence, intelligent media software, safety technology, and interactive entertainment.
 
-## Support My Projects
+# Support, Sponsor, or Partner
 
-If you enjoy these projects and want to support continued development, support is completely optional.
+I'm building these projects in public and welcome support from people and organizations interested in helping promising software move from prototypes toward production.
+
+### Ways to participate
+- **Sponsor development** — support ongoing engineering, testing, infrastructure, and releases.
+- **Strategic partnership** — collaborate around technology, distribution, education, media, or product development.
+- **Licensing** — discuss licensing technology or product concepts where appropriate.
+- **Investment conversations** — discuss individual projects that are ready for a more formal commercialization path.
+- **Technical collaboration** — contribute engineering expertise, testing, documentation, or product feedback.
+
+### Current funding priorities
+Funding is primarily intended for software development, cloud/GPU infrastructure, security and quality testing, product design, deployment, and moving the strongest projects toward production-ready releases.
+
+### Direct support
+Support is optional and does not represent an investment, purchase of equity, or promise of financial return.
 
 **PayPal:** https://www.paypal.biz/Justsaving
 
@@ -135,8 +89,15 @@ If you enjoy these projects and want to support continued development, support i
 
 **Ethereum (ETH):** `0x8AdE34252Ef275b2b503387209e0f56056D29A34`
 
-Please double-check the destination before sending cryptocurrency. Cryptocurrency transactions generally cannot be reversed.
+Please verify cryptocurrency destinations before sending. Cryptocurrency transactions generally cannot be reversed.
+
+### GitHub Sponsors
+I am preparing this portfolio for GitHub Sponsors. Once sponsorship is enabled for this account, this section can link directly to the GitHub Sponsors profile and individual repositories can expose GitHub's Sponsor button.
+
+## For Companies and Investors
+
+Interested in a specific project? Start with its repository to review the product direction, implementation status, architecture, and development history. Commercial discussions should focus on a specific project and opportunity rather than treating donations as investments.
 
 ## Portfolio Principle
 
-Build in public. Improve continuously. Document what is real. Turn promising experiments into serious products.
+**Build in public. Improve continuously. Document what is real. Turn promising experiments into serious products.**
