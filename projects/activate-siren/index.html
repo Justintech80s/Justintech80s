@@ -38,7 +38,54 @@
         flash=$('flash'),vibrate=$('vibrate'),status=$('status'),statusText=$('statusText');
 
   let ctx=null,nodes=[],timers=[],flashTimer=null,vibTimer=null,active=false;
+  let safetySession=null;
   const labels={siren:'Emergency Siren',high:'High-Pitch Alarm',pulse:'Pulse Alarm',sos:'SOS Alarm'};
+
+  async function openSafetySession(alarmPattern){
+    try{
+      const res=await fetch('/api/safety-sessions',{
+        method:'POST',
+        headers:{'content-type':'application/json'},
+        body:JSON.stringify({alarmPattern}),
+        cache:'no-store'
+      });
+      if(!res.ok) return;
+      const data=await res.json();
+      safetySession={
+        id:data.session.id,
+        accessToken:data.accessToken
+      };
+      sessionStorage.setItem('activateSirenSafetySession',JSON.stringify(safetySession));
+    }catch(e){
+      console.warn('Safety Session backend unavailable; local alarm remains active.',e);
+    }
+  }
+
+  async function closeSafetySession(nextStatus='resolved'){
+    const current=safetySession;
+    if(!current) return;
+    safetySession=null;
+    sessionStorage.removeItem('activateSirenSafetySession');
+    try{
+      await fetch('/api/safety-sessions?id='+encodeURIComponent(current.id),{
+        method:'PATCH',
+        headers:{
+          'content-type':'application/json',
+          'authorization':'Bearer '+current.accessToken
+        },
+        body:JSON.stringify({status:nextStatus}),
+        cache:'no-store',
+        keepalive:true
+      });
+    }catch(e){
+      console.warn('Could not close Safety Session.',e);
+    }
+  }
+
+  try{
+    const saved=sessionStorage.getItem('activateSirenSafetySession');
+    if(saved) safetySession=JSON.parse(saved);
+  }catch(e){ safetySession=null; }
 
   const addTimer=id=>(timers.push(id),id);
 
@@ -56,6 +103,7 @@
   }
 
   function stopAlarm(){
+    if(active) closeSafetySession('resolved');
     clearAllTimers();
     nodes.forEach(n=>{
       try{ if(n.stop) n.stop(); }catch(e){}
@@ -201,6 +249,7 @@
       }
 
       active=true;
+      openSafetySession(p);
       activate.hidden=true;
       stopBtn.hidden=false;
       test.disabled=!low;
