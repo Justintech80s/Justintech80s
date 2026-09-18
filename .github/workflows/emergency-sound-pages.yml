@@ -1,11 +1,11 @@
-name: Deploy Emergency Sound to GitHub Pages
+name: Deploy Activate Siren to GitHub Pages
 
 on:
   push:
     branches: ["main"]
     paths:
-      - "projects/emergency-sound/**"
-      - ".github/workflows/emergency-sound-pages.yml"
+      - "projects/activate-siren/**"
+      - ".github/workflows/activate-siren-pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -31,7 +31,7 @@ jobs:
       - name: Upload Emergency Sound site
         uses: actions/upload-pages-artifact@v4
         with:
-          path: projects/emergency-sound
+          path: projects/activate-siren
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
