@@ -62,6 +62,18 @@ Bunny Noir is a noir-inspired 2D stealth-thriller prototype built around cinemat
 
 Repository: https://github.com/Justintech80s/Bunny
 
+---
+
+### Emergency Sound — Free Browser Safety Tool
+Emergency Sound is a lightweight, one-tap browser alarm designed to attract attention in an emergency without requiring an account, database, or app installation.
+
+**Current features:** emergency siren, high-pitch alarm, pulse alarm, SOS pattern, adjustable volume, low-volume test mode, optional screen flash, and vibration on supported devices.
+
+Source: https://github.com/Justintech80s/Justintech80s/tree/main/projects/emergency-sound  
+Netlify-ready: the project can be imported from this same GitHub source for continuous deployment.
+
+> **Safety note:** Emergency Sound does not contact 911 or other emergency services and cannot override a device's hardware volume or silent-mode restrictions.
+
 ## What I'm Building Toward
 
 This portfolio is focused on projects that can grow beyond demos into useful software products: AI-assisted search, knowledge systems, recommendation and discovery engines, marketplace intelligence, intelligent media software, safety technology, and interactive entertainment.
