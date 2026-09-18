@@ -1,0 +1,3 @@
+[build]
+  base = "projects/activate-siren"
+  publish = "."
