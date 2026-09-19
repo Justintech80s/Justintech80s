@@ -5,7 +5,7 @@ on:
     branches: ["main"]
     paths:
       - "projects/activate-siren/**"
-      - ".github/workflows/activate-siren-pages.yml"
+      - ".github/workflows/emergency-sound-pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -14,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages-emergency-sound"
+  group: "pages-activate-siren"
   cancel-in-progress: true
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v6
       - name: Configure Pages
         uses: actions/configure-pages@v5
-      - name: Upload Emergency Sound site
+      - name: Upload Activate Siren site
         uses: actions/upload-pages-artifact@v4
         with:
           path: projects/activate-siren
