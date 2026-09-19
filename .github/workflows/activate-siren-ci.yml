@@ -59,8 +59,8 @@ jobs:
       - name: Install pinned dependencies
         run: npm install --ignore-scripts --no-audit --no-fund
 
-      - name: Install Chromium and WebKit
-        run: npx playwright install --with-deps chromium webkit
+      - name: Install Chromium, WebKit, and Firefox
+        run: npx playwright install --with-deps chromium webkit firefox
 
-      - name: Run Chromium/WebKit browser smoke tests
+      - name: Run Chromium/WebKit/Firefox browser smoke tests
         run: npm run test:browser
