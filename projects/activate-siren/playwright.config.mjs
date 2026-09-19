@@ -9,7 +9,9 @@ export default defineConfig({
   reporter: "line",
   use: {
     baseURL: "http://127.0.0.1:4173",
-    serviceWorkers: "allow",
+    // Block service workers in API-mocked interaction tests so the browser
+    // cannot bypass Playwright routes. Offline behavior gets its own context.
+    serviceWorkers: "block",
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
   },

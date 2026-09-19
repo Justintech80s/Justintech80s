@@ -183,27 +183,38 @@ test("official alert lookup renders read-only official alert content", async ({ 
   );
 });
 
-test("service worker installs and the page reloads offline", async ({ page, context }) => {
-  await page.goto("/");
-  await page.evaluate(async () => {
-    if (!("serviceWorker" in navigator)) throw new Error("service worker unsupported");
-    await navigator.serviceWorker.ready;
-    if (!navigator.serviceWorker.controller) {
-      await new Promise((resolve) => {
-        navigator.serviceWorker.addEventListener("controllerchange", resolve, { once: true });
-        setTimeout(resolve, 2000);
-      });
-    }
+test("service worker installs and the page reloads offline", async ({ browser }, testInfo) => {
+  test.skip(
+    testInfo.project.name !== "chromium-desktop",
+    "One dedicated Chromium service-worker run avoids duplicate cache tests and a Playwright WebKit headless offline-reload limitation."
+  );
+
+  const context = await browser.newContext({
+    serviceWorkers: "allow",
+    viewport: { width: 1280, height: 800 },
   });
+  const page = await context.newPage();
 
-  if (!(await page.evaluate(() => Boolean(navigator.serviceWorker.controller)))) {
-    await page.reload();
-    await page.evaluate(() => navigator.serviceWorker.ready);
+  try {
+    await page.goto("http://127.0.0.1:4173/");
+    await page.evaluate(async () => {
+      if (!("serviceWorker" in navigator)) {
+        throw new Error("service worker unsupported");
+      }
+      await navigator.serviceWorker.ready;
+    });
+
+    if (!(await page.evaluate(() => Boolean(navigator.serviceWorker.controller)))) {
+      await page.reload({ waitUntil: "domcontentloaded" });
+      await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
+    }
+
+    await context.setOffline(true);
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await expect(page.getByRole("button", { name: /ACTIVATE SIREN/i })).toBeVisible();
+    await expect(page.locator("#connectionState")).toContainText("Offline");
+  } finally {
+    await context.setOffline(false).catch(() => {});
+    await context.close();
   }
-
-  await context.setOffline(true);
-  await page.reload({ waitUntil: "domcontentloaded" });
-  await expect(page.getByRole("button", { name: /ACTIVATE SIREN/i })).toBeVisible();
-  await expect(page.locator("#connectionState")).toContainText("Offline");
-  await context.setOffline(false);
 });
