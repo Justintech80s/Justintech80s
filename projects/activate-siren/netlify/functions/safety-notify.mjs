@@ -53,20 +53,25 @@ const sendEmail = async ({ to, message, idempotencyKey }) => {
   const from = process.env.RESEND_FROM_EMAIL;
   if (!apiKey || !from) return { status: "not_configured", provider: "resend" };
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      authorization: `Bearer ${apiKey}`,
-      "Idempotency-Key": idempotencyKey,
-    },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      subject: "Activate Siren trusted-contact alert",
-      text: message,
-    }),
-  });
+  let response;
+  try {
+    response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${apiKey}`,
+        "Idempotency-Key": idempotencyKey,
+      },
+      body: JSON.stringify({
+        from,
+        to: [to],
+        subject: "Activate Siren trusted-contact alert",
+        text: message,
+      }),
+    });
+  } catch {
+    return { status: "failed", provider: "resend", error: "Email provider network request failed" };
+  }
 
   let data = {};
   try { data = await response.json(); } catch {}
@@ -98,17 +103,26 @@ const sendSms = async ({ to, message }) => {
   const body = new URLSearchParams({ To: to, From: from, Body: message });
   const basic = Buffer.from(`${accountSid}:${authToken}`).toString("base64");
 
-  const response = await fetch(
-    `https://api.twilio.com/2010-04-01/Accounts/${encodeURIComponent(accountSid)}/Messages.json`,
-    {
-      method: "POST",
-      headers: {
-        authorization: `Basic ${basic}`,
-        "content-type": "application/x-www-form-urlencoded",
-      },
-      body,
-    }
-  );
+  let response;
+  try {
+    response = await fetch(
+      `https://api.twilio.com/2010-04-01/Accounts/${encodeURIComponent(accountSid)}/Messages.json`,
+      {
+        method: "POST",
+        headers: {
+          authorization: `Basic ${basic}`,
+          "content-type": "application/x-www-form-urlencoded",
+        },
+        body,
+      }
+    );
+  } catch {
+    return {
+      status: "unknown",
+      provider: "twilio",
+      error: "SMS provider network request failed; delivery state is unknown and will not be retried automatically",
+    };
+  }
 
   let data = {};
   try { data = await response.json(); } catch {}
@@ -172,6 +186,25 @@ export default async (req) => {
     contacts: {},
     updatedAt: null,
   };
+
+  const allAlreadySent = contacts.every(
+    (contact) => existing.contacts?.[contact.id]?.status === "sent"
+  );
+
+  if (allAlreadySent) {
+    return json({
+      sessionId: session.id,
+      results: contacts.map((contact) => ({
+        id: contact.id,
+        name: contact.name,
+        type: contact.type,
+        ...existing.contacts[contact.id],
+      })),
+      sent: contacts.length,
+      failed: 0,
+      alreadyDelivered: true,
+    });
+  }
 
   if (existing.attempts >= MAX_ATTEMPTS_PER_SESSION) {
     return json({
@@ -252,11 +285,17 @@ export default async (req) => {
           consistency: "strong",
         });
 
-        if (lock?.data?.status === "sent" || lock?.data?.status === "sending") {
+        if (["sent", "sending", "unknown"].includes(lock?.data?.status)) {
           result = {
-            status: lock.data.status === "sent" ? "sent" : "in_progress",
+            status:
+              lock.data.status === "sent"
+                ? "sent"
+                : lock.data.status === "unknown"
+                  ? "unknown"
+                  : "in_progress",
             provider: "twilio",
             providerMessageId: lock.data.providerMessageId || null,
+            error: lock.data.error || null,
           };
         } else {
           const lockValue = {
@@ -318,7 +357,7 @@ export default async (req) => {
     sessionId: session.id,
     results,
     sent: results.filter((r) => r.status === "sent").length,
-    failed: results.filter((r) => r.status === "failed" || r.status === "invalid").length,
+    failed: results.filter((r) => ["failed", "invalid", "unknown"].includes(r.status)).length,
   });
 };
 
