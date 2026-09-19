@@ -212,7 +212,7 @@ export function paypalConfig() {
       ? "https://api-m.paypal.com"
       : "https://api-m.sandbox.paypal.com";
 
-  const price = String(process.env.SIREN_UNLOCK_PRICE || "").trim();
+  const price = String(process.env.SIREN_UNLOCK_PRICE || "5.00").trim();
   const currency = String(process.env.SIREN_UNLOCK_CURRENCY || "USD")
     .trim()
     .toUpperCase();
