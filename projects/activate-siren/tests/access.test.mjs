@@ -96,7 +96,7 @@ test("only a completed capture qualifies", () => {
   assert.equal(completedCapture(completed)?.capture?.id, "cap-2");
 });
 
-test("PayPal configuration defaults to sandbox and requires a price", () => {
+test("PayPal configuration defaults to sandbox with a $5 USD unlock", () => {
   const previous = {
     PAYPAL_ENV: process.env.PAYPAL_ENV,
     PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
@@ -108,14 +108,14 @@ test("PayPal configuration defaults to sandbox and requires a price", () => {
   process.env.PAYPAL_ENV = "sandbox";
   process.env.PAYPAL_CLIENT_ID = "client";
   process.env.PAYPAL_CLIENT_SECRET = "secret";
-  process.env.SIREN_UNLOCK_PRICE = "9.99";
+  delete process.env.SIREN_UNLOCK_PRICE;
   process.env.SIREN_UNLOCK_CURRENCY = "USD";
 
   try {
     const config = paypalConfig();
     assert.equal(config.environment, "sandbox");
     assert.equal(config.configured, true);
-    assert.equal(config.price, "9.99");
+    assert.equal(config.price, "5.00");
     assert.equal(config.currency, "USD");
   } finally {
     for (const [key, value] of Object.entries(previous)) {
