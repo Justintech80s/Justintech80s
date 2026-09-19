@@ -1,119 +1,58 @@
-# Justintech80s
+# Activate Siren
 
-Building intelligent software, AI systems, experimental applications, and interactive products.
+Free, browser-based emergency attention alarm.
 
-## Featured Projects
+**Live Website:** https://cozy-crumble-3bd29b.netlify.app/
 
-### Activate Siren — Free Browser Safety Tool
-Activate Siren is a lightweight, one-tap browser alarm designed to attract attention in an emergency. The core siren works without an account and can be installed for offline use after the first successful load; optional short-lived Safety Sessions power consented location and trusted-contact features.
+## Features
+- One-tap siren
+- Native media alarm playback with AAC/M4A first on iPhone, MP3 fallback, WAV fallback, and Web Audio fallback
+- Emergency Siren, High-Pitch, Pulse, and SOS patterns
+- Adjustable volume
+- Low-volume test mode
+- Optional screen flash
+- Installable/offline-capable web app shell after the first successful load
+- No login required for the local siren
+- Optional short-lived Safety Sessions for consented location and trusted-contact workflows
 
-**Current features:** emergency siren, high-pitch alarm, pulse alarm, SOS pattern, adjustable volume, low-volume test mode, optional screen flash, and vibration on supported devices.
+## Offline behavior
+The local siren interface, Web Audio alarm logic, manifest, and app icon are cached by a service worker after a successful visit. Safety Session APIs, trusted-contact notifications, and official public-safety alerts are deliberately network-only and are never served from the offline cache.
 
-Source: https://github.com/Justintech80s/Justintech80s/tree/main/projects/activate-siren  
-Live Website: https://cozy-crumble-3bd29b.netlify.app/  
-Netlify deployment: connected to this GitHub source for continuous deployment.
+## Safety
+This tool is designed to attract attention. It does not contact police, fire, EMS, 911, or other emergency services. Browsers cannot override a device's hardware volume or silent-mode restrictions.
 
-> **Safety note:** Activate Siren does not contact 911 or other emergency services and cannot override a device's hardware volume or silent-mode restrictions.
+## Hosting
+The same source is prepared for GitHub Pages and Netlify.
 
----
+### Netlify
+Import the GitHub repository and use:
+- Base directory: `projects/activate-siren`
+- Build command: leave blank
+- Publish directory: `.`
+
+[Deploy this project to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/Justintech80s/Justintech80s&create_from_path=projects/activate-siren)
 
 
-# 🛡️ KidOS
-## AI-Powered Child-Safe Computing Environment
+## Browser verification
+Automated browser smoke tests run in GitHub Actions with pinned Playwright 1.63.0 against Chromium desktop, Chromium mobile-size, and WebKit mobile-size contexts. They verify:
 
-**A child-first computing platform built around safety, parental control, AI-assisted media protection, and a full-screen desktop experience.**
+- siren start/stop UI flow
+- low-volume tests never send trusted-contact notifications
+- explicit geolocation opt-in behavior
+- official-alert rendering
+- service-worker installation and offline reload
 
-[VIEW THE KidOS PROJECT →](https://github.com/Justintech80s/KidOS)
+Headless browser testing verifies application behavior but cannot prove physical speaker loudness or device mute-switch behavior. Those remain physical-device checks.
 
-### Core Engineering Direction
-- Kid-friendly desktop and application shell
-- Parent-controlled profiles, permissions, and approval flows
-- Safe browsing and search enforcement
-- AI-assisted image and video safety classification
-- Policy engine for allow, block, restrict, and parent-review decisions
-- Windows lockdown / Assigned Access integration
-- Guardian service and tamper-resistance architecture
-- Secure settings, logging, and recovery controls
 
-> **Development status:** KidOS is under active development. The repository documents and implements the underlying system incrementally.
+## Audio compatibility
+The production alarm now uses pre-generated WAV media files as the primary playback path. Playback is started directly from the user's button tap, which is more compatible with mobile Safari and mobile Chromium than relying only on an oscillator-based AudioContext. The original Web Audio generator remains as a fallback if the media element is rejected.
 
----
 
-### Approach — Intent-Driven Social Platform
-Approach is designed to turn online attention into meaningful interaction, opportunity, and economic value. People can publish photos and videos with a specific intent such as networking, collaboration, advice, business, buying, selling, or connecting with creators.
+## iPhone audio hardening
+The iPhone-focused audio revision uses cache-busted, standard 44.1 kHz 16-bit mono PCM WAV assets. The service-worker cache generation was advanced so previously cached low-rate alarm files are discarded.
 
-**Product and engineering direction:** intent-driven posts, profiles, messaging, photo/video capture, universal links, creator commerce, AI-assisted media features, feed ranking, account security, and PWA support.
 
-> **Core idea:** Instagram monetizes attention. Approach is designed to monetize intent.
+## iPhone web limitations
+The iPhone path now prefers AAC/M4A, then MP3, then WAV, all initiated directly from the user tap. The interface reports whether the browser's media playback clock actually advances. If playback advances but no sound is audible, the remaining issue is outside page-level playback logic (for example Silent Mode, an embedded WKWebView, media-volume level, Bluetooth, or AirPlay routing).
 
-Repository: https://github.com/Justintech80s/Approach-Web  
-Live Website: https://approach-alpha.vercel.app/
-
----
-
-### MovieFinder — Intelligent Cinema Search
-MovieFinder is an intelligent movie and streaming discovery system focused on natural-language search, filmography intelligence, cinema relationships, ranking, verification, and availability.
-
-**Engineering direction:** natural-language discovery, filmography search, streaming availability, cinema relationship graphs, ranking and verification, analytics, and Python-backed Cinema Brain experimentation.
-
-Repository: https://github.com/Justintech80s/MovieFinder  
-Live Website: https://getmoviefinder.vercel.app/
-
----
-
-### Auction — Marketplace Pricing Intelligence
-Auction focuses on item valuation and marketplace research, turning fragmented marketplace information into clearer pricing evidence.
-
-**Engineering direction:** item identification, marketplace integrations, price normalization, asking-versus-sold evidence, confidence-aware valuation, duplicate filtering, and privacy-safe uploads.
-
-Repository: https://github.com/Justintech80s/Auction-  
-Live Website: https://auctionsave.base44.app
-
----
-
-### Bunny Noir — Cinematic Stealth Game
-Bunny Noir is a noir-inspired 2D stealth-thriller prototype built around cinematic suspense, shadows, patrol avoidance, observation, and interactive stealth mechanics.
-
-Repository: https://github.com/Justintech80s/Bunny
-
----
-
-## What I'm Building Toward
-
-This portfolio is focused on projects that can grow beyond demos into useful software products: AI-assisted search, knowledge systems, recommendation and discovery engines, marketplace intelligence, intelligent media software, safety technology, and interactive entertainment.
-
-# Support, Sponsor, or Partner
-
-I'm building these projects in public and welcome support from people and organizations interested in helping promising software move from prototypes toward production.
-
-### Ways to participate
-- **Sponsor development** — support ongoing engineering, testing, infrastructure, and releases.
-- **Strategic partnership** — collaborate around technology, distribution, education, media, or product development.
-- **Licensing** — discuss licensing technology or product concepts where appropriate.
-- **Investment conversations** — discuss individual projects that are ready for a more formal commercialization path.
-- **Technical collaboration** — contribute engineering expertise, testing, documentation, or product feedback.
-
-### Current funding priorities
-Funding is primarily intended for software development, cloud/GPU infrastructure, security and quality testing, product design, deployment, and moving the strongest projects toward production-ready releases.
-
-### Direct support
-Support is optional and does not represent an investment, purchase of equity, or promise of financial return.
-
-**PayPal:** https://www.paypal.biz/Justsaving
-
-**Bitcoin (BTC):** `35pjN4cz6XHpGyyEBAgSAAjuDTbwLK4iSU`
-
-**Ethereum (ETH):** `0x8AdE34252Ef275b2b503387209e0f56056D29A34`
-
-Please verify cryptocurrency destinations before sending. Cryptocurrency transactions generally cannot be reversed.
-
-### GitHub Sponsors
-I am preparing this portfolio for GitHub Sponsors. Once sponsorship is enabled for this account, this section can link directly to the GitHub Sponsors profile and individual repositories can expose GitHub's Sponsor button.
-
-## For Companies and Investors
-
-Interested in a specific project? Start with its repository to review the product direction, implementation status, architecture, and development history. Commercial discussions should focus on a specific project and opportunity rather than treating donations as investments.
-
-## Portfolio Principle
-
-**Build in public. Improve continuously. Document what is real. Turn promising experiments into serious products.**
