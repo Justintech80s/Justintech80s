@@ -45,6 +45,8 @@
     <button class="secondary" id="addContact" type="button">ADD TRUSTED CONTACT</button>
     <div class="contact-list" id="contactsList"></div>
     <div class="privacy-state" id="contactsState">0 of 3 contacts added.</div>
+    <label class="tool-row" style="margin-top:12px"><input id="notifyContacts" type="checkbox"><span>Notify my trusted contacts when I activate the siren</span></label>
+    <div class="privacy-state" id="notifyState">Notifications are off.</div>
   </div>
 </div>
 <div class="status" id="status"><span class="dot"></span><span id="statusText">Ready</span></div>
@@ -59,7 +61,8 @@
         flash=$('flash'),vibrate=$('vibrate'),status=$('status'),statusText=$('statusText'),
         locationConsent=$('locationConsent'),shareLocationBtn=$('shareLocation'),locationState=$('locationState'),
         contactName=$('contactName'),contactType=$('contactType'),contactValue=$('contactValue'),
-        addContactBtn=$('addContact'),contactsList=$('contactsList'),contactsState=$('contactsState');
+        addContactBtn=$('addContact'),contactsList=$('contactsList'),contactsState=$('contactsState'),
+        notifyContacts=$('notifyContacts'),notifyState=$('notifyState');
 
   let ctx=null,nodes=[],timers=[],flashTimer=null,vibTimer=null,active=false;
   let safetySession=null;
@@ -67,7 +70,7 @@
   let lastLocation=null;
   const labels={siren:'Emergency Siren',high:'High-Pitch Alarm',pulse:'Pulse Alarm',sos:'SOS Alarm'};
 
-  async function openSafetySession(alarmPattern){
+  async function openSafetySession(alarmPattern,shouldNotify=false){
     try{
       const res=await fetch('/api/safety-sessions',{
         method:'POST',
@@ -83,8 +86,46 @@
       };
       sessionStorage.setItem('activateSirenSafetySession',JSON.stringify(safetySession));
       await syncSafetyData();
+      if(shouldNotify && trustedContacts.length){
+        await notifyTrustedContacts();
+      }else if(shouldNotify){
+        notifyState.textContent='No trusted contacts were added, so no notification was sent.';
+      }
     }catch(e){
       console.warn('Safety Session backend unavailable; local alarm remains active.',e);
+    }
+  }
+
+  async function notifyTrustedContacts(){
+    if(!safetySession) return false;
+    notifyState.textContent='Sending trusted-contact alert…';
+    try{
+      const res=await fetch('/api/safety-notify?id='+encodeURIComponent(safetySession.id),{
+        method:'POST',
+        headers:{
+          'authorization':'Bearer '+safetySession.accessToken
+        },
+        cache:'no-store'
+      });
+      const data=await res.json().catch(()=>({}));
+      if(res.ok){
+        const sent=Number(data.sent||0);
+        const failed=Number(data.failed||0);
+        notifyState.textContent=sent
+          ? 'Trusted-contact alert sent to '+sent+' contact'+(sent===1?'':'s')+(failed?' ('+failed+' failed).':'.')
+          : 'No trusted-contact alert was delivered.';
+        return sent>0;
+      }
+      if(res.status===503){
+        notifyState.textContent='Notification delivery is ready, but email/SMS provider credentials still need to be added in Netlify.';
+      }else{
+        notifyState.textContent=data.error||'Trusted-contact notification could not be sent.';
+      }
+      return false;
+    }catch(e){
+      console.warn('Trusted-contact notification failed.',e);
+      notifyState.textContent='Notification service is unavailable; the local siren is still active.';
+      return false;
     }
   }
 
@@ -386,7 +427,7 @@
 
       active=true;
       if(locationConsent.checked) captureLocation();
-      openSafetySession(p);
+      openSafetySession(p,!low&&notifyContacts.checked);
       activate.hidden=true;
       stopBtn.hidden=false;
       test.disabled=!low;
@@ -426,6 +467,15 @@
       locationState.textContent='Location sharing is enabled for the next activation.';
     }
   });
+  notifyContacts.addEventListener('change',()=>{
+    if(notifyContacts.checked){
+      notifyState.textContent=trustedContacts.length
+        ? 'Trusted contacts will be notified on a real siren activation. Low-volume tests never send alerts.'
+        : 'Add at least one trusted contact before enabling delivery.';
+    }else{
+      notifyState.textContent='Notifications are off.';
+    }
+  });
   addContactBtn.addEventListener('click',()=>{
     const name=contactName.value.trim();
     const value=contactValue.value.trim();
@@ -446,6 +496,9 @@
     saveTrustedContacts();
     renderTrustedContacts();
     patchSafetySession({trustedContacts});
+    if(notifyContacts.checked){
+      notifyState.textContent='Trusted contacts will be notified on a real siren activation. Low-volume tests never send alerts.';
+    }
   });
   volume.addEventListener('input',()=>volumeLabel.textContent=volume.value+'%');
   pattern.addEventListener('change',()=>{if(active)stopAlarm()});
