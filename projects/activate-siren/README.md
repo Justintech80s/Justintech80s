@@ -11,7 +11,6 @@ Free, browser-based emergency attention alarm.
 - Adjustable volume
 - Low-volume test mode
 - Optional screen flash
-- Optional vibration on supported devices
 - Installable/offline-capable web app shell after the first successful load
 - No login required for the local siren
 - Optional short-lived Safety Sessions for consented location and trusted-contact workflows
@@ -43,7 +42,7 @@ Automated browser smoke tests run in GitHub Actions with pinned Playwright 1.63.
 - official-alert rendering
 - service-worker installation and offline reload
 
-Headless browser testing verifies application behavior but cannot prove physical speaker loudness, device mute-switch behavior, or vibration hardware. Those remain physical-device checks.
+Headless browser testing verifies application behavior but cannot prove physical speaker loudness or device mute-switch behavior. Those remain physical-device checks.
 
 
 ## Audio compatibility
@@ -51,10 +50,9 @@ The production alarm now uses pre-generated WAV media files as the primary playb
 
 
 ## iPhone audio hardening
-The iPhone-focused audio revision uses cache-busted, standard 44.1 kHz 16-bit mono PCM WAV assets. The service-worker cache generation was advanced so previously cached low-rate alarm files are discarded. The UI also disables the vibration option when the browser does not expose the Vibration API.
+The iPhone-focused audio revision uses cache-busted, standard 44.1 kHz 16-bit mono PCM WAV assets. The service-worker cache generation was advanced so previously cached low-rate alarm files are discarded.
 
 
 ## iPhone web limitations
 The iPhone path now prefers AAC/M4A, then MP3, then WAV, all initiated directly from the user tap. The interface reports whether the browser's media playback clock actually advances. If playback advances but no sound is audible, the remaining issue is outside page-level playback logic (for example Silent Mode, an embedded WKWebView, media-volume level, Bluetooth, or AirPlay routing).
 
-A normal website cannot force iPhone vibration because iOS WebKit does not expose the Vibration API. On iPhone the vibration control is therefore disabled rather than shown as functional.
