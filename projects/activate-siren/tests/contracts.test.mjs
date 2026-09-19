@@ -13,6 +13,11 @@ const notify = read("netlify/functions/safety-notify.mjs");
 const official = read("netlify/functions/official-alerts.mjs");
 const cleanup = read("netlify/functions/cleanup-safety-sessions.mjs");
 const health = read("netlify/functions/health.mjs");
+const accessLib = read("netlify/functions/_access-lib.mjs");
+const sirenAccess = read("netlify/functions/siren-access.mjs");
+const paypalCreate = read("netlify/functions/paypal-create-order.mjs");
+const paypalCapture = read("netlify/functions/paypal-capture-order.mjs");
+const paypalWebhook = read("netlify/functions/paypal-webhook.mjs");
 const manifest = JSON.parse(read("manifest.webmanifest"));
 const serviceWorker = read("sw.js");
 
@@ -155,4 +160,55 @@ test("iPhone audio prefers AAC media", () => {
   assert.match(serviceWorker, /activate-siren-shell-v5/);
   assert.match(html, /Silent Mode off/);
   assert.doesNotMatch(html, /navigator\.vibrate|id="vibrate"|Vibrate on supported phones/);
+});
+
+
+test("siren access gate enforces three free activations server-side", () => {
+  assert.match(accessLib, /FREE_USE_LIMIT = 3/);
+  assert.match(accessLib, /onlyIfMatch: entry\.etag/);
+  assert.match(sirenAccess, /body\.action === "consume"/);
+  assert.match(sirenAccess, /paymentRequired: true/);
+  assert.match(sirenAccess, /}, 402\)/);
+});
+
+test("creator bypass is server-configured rather than browser hard-coded", () => {
+  assert.match(accessLib, /ACTIVATE_SIREN_CREATOR_VISITOR_ID/);
+  assert.match(accessLib, /creator,/);
+  assert.doesNotMatch(html, /ACTIVATE_SIREN_CREATOR_VISITOR_ID/);
+});
+
+test("PayPal unlock requires a locked access identity", () => {
+  assert.match(paypalCreate, /if \(!access\.locked\)/);
+  assert.match(paypalCreate, /Free activations remain/);
+  assert.match(paypalCreate, /\/v2\/checkout\/orders/);
+});
+
+test("PayPal capture unlocks only completed matching payments", () => {
+  assert.match(paypalCapture, /completedCapture\(orderData\)/);
+  assert.match(paypalCapture, /amountMatches/);
+  assert.match(paypalCapture, /recordCaptureOnce/);
+  assert.match(paypalCapture, /unlockVisitor/);
+  assert.match(accessLib, /onlyIfNew: true/);
+});
+
+test("PayPal webhook is signature verified before applying unlock", () => {
+  assert.match(paypalWebhook, /verify-webhook-signature/);
+  assert.match(paypalWebhook, /verification_status !== "SUCCESS"/);
+  assert.match(paypalWebhook, /PAYMENT\.CAPTURE\.COMPLETED/);
+  assert.match(paypalWebhook, /amountMatches/);
+  assert.match(paypalWebhook, /unlockVisitor/);
+});
+
+test("PayPal secrets and unlock price remain environment configured", () => {
+  for (const name of [
+    "PAYPAL_CLIENT_ID",
+    "PAYPAL_CLIENT_SECRET",
+    "PAYPAL_WEBHOOK_ID",
+    "SIREN_UNLOCK_PRICE",
+    "SIREN_UNLOCK_CURRENCY",
+  ]) {
+    assert.match(accessLib + paypalWebhook, new RegExp("process\\.env\\." + name));
+  }
+  assert.match(health, /paypalConfigured/);
+  assert.match(health, /creatorBypassConfigured/);
 });
