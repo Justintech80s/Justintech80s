@@ -42,6 +42,9 @@ export default async (req) => {
 
   const requestId = `siren-unlock-${auth.id}-${randomUUID()}`;
   const invoiceId = `siren-${auth.id.slice(0, 8)}-${Date.now()}`;
+  const siteOrigin = new URL(req.url).origin;
+  const returnUrl = `${siteOrigin}/?paypal=return`;
+  const cancelUrl = `${siteOrigin}/?paypal=cancel`;
 
   const response = await fetch(`${config.baseUrl}/v2/checkout/orders`, {
     method: "POST",
@@ -66,6 +69,8 @@ export default async (req) => {
       application_context: {
         shipping_preference: "NO_SHIPPING",
         user_action: "PAY_NOW",
+        return_url: returnUrl,
+        cancel_url: cancelUrl,
       },
     }),
   });
