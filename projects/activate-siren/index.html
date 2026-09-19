@@ -12,7 +12,7 @@
 <title>Activate Siren</title>
 <meta name="description" content="Free one-tap emergency siren, SOS alarm, and screen flash tool.">
 <style>
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#080a0f;color:#fff}button,input,select{font:inherit}.page{min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 50% 0%,#251015 0,#0d0f16 45%,#080a0f 100%);transition:background .08s,color .08s}.page.flash-on{background:#fff;color:#090909}.card{width:min(100%,520px);background:rgba(17,20,28,.95);border:1px solid rgba(255,255,255,.09);border-radius:28px;padding:28px;box-shadow:0 24px 70px rgba(0,0,0,.42)}.flash-on .card{background:#b60016}.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#20242f;color:#c8cedb;font-weight:800;font-size:12px;letter-spacing:.08em}h1{font-size:clamp(34px,8vw,56px);line-height:.98;margin:18px 0 12px;letter-spacing:-.04em}.subtitle{color:#aeb6c4;line-height:1.5;margin:0 0 20px}.notice{display:grid;gap:5px;background:#161a24;border:1px solid #2b3140;border-radius:15px;padding:14px 15px;margin-bottom:20px}.notice strong{color:#fff}.notice span{font-size:13px;line-height:1.4;color:#aeb6c4}.app-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:-8px 0 16px}.connection{font-size:12px;color:#aeb6c4;font-weight:800}.install{border:1px solid #343a48;background:#171b25;color:#fff;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap}.install[hidden]{display:none}.activate,.stop{width:100%;min-height:130px;border:0;border-radius:24px;font-size:clamp(23px,6vw,34px);font-weight:950;letter-spacing:-.02em;cursor:pointer;box-shadow:0 12px 30px rgba(190,0,28,.28)}.activate{background:linear-gradient(180deg,#ff173a,#c7001e);color:#fff}.stop{background:#fff;color:#b0001b}.speaker{display:block;font-size:42px;margin-bottom:8px}.test{width:100%;margin-top:12px;border:1px solid #343a48;background:#171b25;color:#e5e9f1;border-radius:14px;padding:13px;font-weight:800;cursor:pointer}.test:disabled{opacity:.45}.controls{display:grid;gap:18px;margin-top:24px}.controls label{font-weight:800;font-size:14px}.controls label>span{float:right;color:#aeb6c4}.controls select{width:100%;margin-top:8px;background:#11151d;color:#fff;border:1px solid #303644;border-radius:12px;padding:13px}.controls input[type=range]{width:100%;margin-top:11px;accent-color:#ee1635}.toggle{display:flex;align-items:center;gap:11px;background:#12161f;border:1px solid #272d39;padding:13px 14px;border-radius:13px}.toggle input{width:20px;height:20px;accent-color:#e81333}.toggle span{float:none!important;color:#e7ebf1!important}.safety-tools{display:grid;gap:14px;margin-top:24px}.tool-card{background:#10141d;border:1px solid #2b3140;border-radius:16px;padding:16px}.tool-card h2{font-size:16px;margin:0 0 7px}.tool-card p{font-size:12px;line-height:1.45;color:#949dac;margin:0 0 12px}.tool-row{display:flex;gap:9px;align-items:center}.tool-row input[type=checkbox]{width:20px;height:20px;accent-color:#e81333}.secondary,.mini{border:1px solid #343a48;background:#171b25;color:#fff;border-radius:11px;font-weight:800;cursor:pointer}.secondary{width:100%;padding:11px;margin-top:10px}.mini{padding:8px 10px}.secondary:disabled{opacity:.45}.privacy-state{font-size:12px;color:#aeb6c4;margin-top:9px}.audio-diagnostic{margin-top:10px;padding:10px 12px;border-radius:11px;background:#0c1017;border:1px solid #303644;color:#c8cedb;font-size:12px;line-height:1.45}.official-controls{display:grid;grid-template-columns:1fr 110px;gap:8px}.official-controls select,.official-controls input{width:100%;background:#0c1017;color:#fff;border:1px solid #303644;border-radius:10px;padding:10px}.alerts-list{display:grid;gap:10px;margin-top:12px}.alert-card{background:#0b0f16;border:1px solid #333947;border-radius:13px;padding:12px}.alert-card.amber{border-color:#d98a00}.alert-meta{font-size:11px;color:#9da6b5;margin-bottom:6px}.alert-card h3{font-size:15px;margin:0 0 6px}.alert-card p{margin:5px 0;font-size:12px;line-height:1.45;color:#c4cad3}.alert-card a{color:#fff;font-weight:800}.contact-grid{display:grid;grid-template-columns:1fr 110px;gap:8px}.contact-grid input,.contact-grid select{width:100%;background:#0c1017;color:#fff;border:1px solid #303644;border-radius:10px;padding:10px}.contact-grid .wide{grid-column:1/-1}.contact-list{display:grid;gap:8px;margin-top:10px}.contact-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0c1017;border:1px solid #242a35;border-radius:11px;padding:10px}.contact-copy{min-width:0}.contact-copy strong,.contact-copy span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.contact-copy span{color:#929baa;font-size:12px;margin-top:2px}.status{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:22px;padding:11px;border-radius:12px;background:#11151d;color:#aeb6c4;font-size:14px;font-weight:800}.dot{width:9px;height:9px;border-radius:50%;background:#687181}.status.active{color:#fff;background:#5e0916}.status.active .dot{background:#ff2849;box-shadow:0 0 0 6px rgba(255,40,73,.15)}.safety{margin:18px 2px 0;color:#858e9e;font-size:12px;line-height:1.45;text-align:center}@media(max-width:520px){.page{padding:12px}.card{padding:20px;border-radius:22px}.activate,.stop{min-height:120px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#080a0f;color:#fff}button,input,select{font:inherit}.page{min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 50% 0%,#251015 0,#0d0f16 45%,#080a0f 100%);transition:background .08s,color .08s}.page.flash-on{background:#fff;color:#090909}.card{width:min(100%,520px);background:rgba(17,20,28,.95);border:1px solid rgba(255,255,255,.09);border-radius:28px;padding:28px;box-shadow:0 24px 70px rgba(0,0,0,.42)}.flash-on .card{background:#b60016}.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#20242f;color:#c8cedb;font-weight:800;font-size:12px;letter-spacing:.08em}h1{font-size:clamp(34px,8vw,56px);line-height:.98;margin:18px 0 12px;letter-spacing:-.04em}.subtitle{color:#aeb6c4;line-height:1.5;margin:0 0 20px}.notice{display:grid;gap:5px;background:#161a24;border:1px solid #2b3140;border-radius:15px;padding:14px 15px;margin-bottom:20px}.notice strong{color:#fff}.notice span{font-size:13px;line-height:1.4;color:#aeb6c4}.app-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:-8px 0 16px}.connection{font-size:12px;color:#aeb6c4;font-weight:800}.install{border:1px solid #343a48;background:#171b25;color:#fff;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap}.install[hidden]{display:none}.activate,.stop{width:100%;min-height:130px;border:0;border-radius:24px;font-size:clamp(23px,6vw,34px);font-weight:950;letter-spacing:-.02em;cursor:pointer;box-shadow:0 12px 30px rgba(190,0,28,.28)}.activate{background:linear-gradient(180deg,#ff173a,#c7001e);color:#fff}.stop{background:#fff;color:#b0001b}.speaker{display:block;font-size:42px;margin-bottom:8px}.test{width:100%;margin-top:12px;border:1px solid #343a48;background:#171b25;color:#e5e9f1;border-radius:14px;padding:13px;font-weight:800;cursor:pointer}.test:disabled{opacity:.45}.access-strip{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:12px;padding:10px 12px;border:1px solid #303644;border-radius:12px;background:#0c1017;color:#c8cedb;font-size:12px;font-weight:800}.access-strip .uses{color:#fff;text-align:right}.paywall{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:20px;background:rgba(2,4,8,.82);backdrop-filter:blur(10px)}.paywall[hidden]{display:none}.paywall-card{width:min(100%,430px);background:#11151d;border:1px solid #343b4a;border-radius:22px;padding:24px;box-shadow:0 24px 80px rgba(0,0,0,.55)}.paywall-card h2{margin:0 0 8px;font-size:28px}.paywall-card p{margin:0 0 16px;color:#aeb6c4;line-height:1.5}.unlock-price{font-size:42px;font-weight:950;letter-spacing:-.04em;margin:8px 0 18px}.unlock-price span{font-size:13px;font-weight:800;color:#9099a8;letter-spacing:0}.paypal-button{width:100%;border:0;border-radius:13px;padding:14px;background:#ffc439;color:#111;font-weight:950;cursor:pointer}.restore-button,.close-paywall{width:100%;margin-top:9px;border:1px solid #343a48;border-radius:12px;padding:11px;background:#171b25;color:#fff;font-weight:800;cursor:pointer}.payment-state{margin-top:12px;color:#c8cedb;font-size:12px;line-height:1.45}.controls{display:grid;gap:18px;margin-top:24px}.controls label{font-weight:800;font-size:14px}.controls label>span{float:right;color:#aeb6c4}.controls select{width:100%;margin-top:8px;background:#11151d;color:#fff;border:1px solid #303644;border-radius:12px;padding:13px}.controls input[type=range]{width:100%;margin-top:11px;accent-color:#ee1635}.toggle{display:flex;align-items:center;gap:11px;background:#12161f;border:1px solid #272d39;padding:13px 14px;border-radius:13px}.toggle input{width:20px;height:20px;accent-color:#e81333}.toggle span{float:none!important;color:#e7ebf1!important}.safety-tools{display:grid;gap:14px;margin-top:24px}.tool-card{background:#10141d;border:1px solid #2b3140;border-radius:16px;padding:16px}.tool-card h2{font-size:16px;margin:0 0 7px}.tool-card p{font-size:12px;line-height:1.45;color:#949dac;margin:0 0 12px}.tool-row{display:flex;gap:9px;align-items:center}.tool-row input[type=checkbox]{width:20px;height:20px;accent-color:#e81333}.secondary,.mini{border:1px solid #343a48;background:#171b25;color:#fff;border-radius:11px;font-weight:800;cursor:pointer}.secondary{width:100%;padding:11px;margin-top:10px}.mini{padding:8px 10px}.secondary:disabled{opacity:.45}.privacy-state{font-size:12px;color:#aeb6c4;margin-top:9px}.audio-diagnostic{margin-top:10px;padding:10px 12px;border-radius:11px;background:#0c1017;border:1px solid #303644;color:#c8cedb;font-size:12px;line-height:1.45}.official-controls{display:grid;grid-template-columns:1fr 110px;gap:8px}.official-controls select,.official-controls input{width:100%;background:#0c1017;color:#fff;border:1px solid #303644;border-radius:10px;padding:10px}.alerts-list{display:grid;gap:10px;margin-top:12px}.alert-card{background:#0b0f16;border:1px solid #333947;border-radius:13px;padding:12px}.alert-card.amber{border-color:#d98a00}.alert-meta{font-size:11px;color:#9da6b5;margin-bottom:6px}.alert-card h3{font-size:15px;margin:0 0 6px}.alert-card p{margin:5px 0;font-size:12px;line-height:1.45;color:#c4cad3}.alert-card a{color:#fff;font-weight:800}.contact-grid{display:grid;grid-template-columns:1fr 110px;gap:8px}.contact-grid input,.contact-grid select{width:100%;background:#0c1017;color:#fff;border:1px solid #303644;border-radius:10px;padding:10px}.contact-grid .wide{grid-column:1/-1}.contact-list{display:grid;gap:8px;margin-top:10px}.contact-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0c1017;border:1px solid #242a35;border-radius:11px;padding:10px}.contact-copy{min-width:0}.contact-copy strong,.contact-copy span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.contact-copy span{color:#929baa;font-size:12px;margin-top:2px}.status{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:22px;padding:11px;border-radius:12px;background:#11151d;color:#aeb6c4;font-size:14px;font-weight:800}.dot{width:9px;height:9px;border-radius:50%;background:#687181}.status.active{color:#fff;background:#5e0916}.status.active .dot{background:#ff2849;box-shadow:0 0 0 6px rgba(255,40,73,.15)}.safety{margin:18px 2px 0;color:#858e9e;font-size:12px;line-height:1.45;text-align:center}@media(max-width:520px){.page{padding:12px}.card{padding:20px;border-radius:22px}.activate,.stop{min-height:120px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
@@ -28,6 +28,7 @@
 <button class="activate" id="activate"><span class="speaker">🔊</span>ACTIVATE SIREN</button>
 <button class="stop" id="stop" hidden>■ STOP ALARM</button>
 <button class="test" id="test">TEST AT LOW VOLUME</button>
+<div class="access-strip"><span id="accessState">Checking siren access…</span><span class="uses" id="freeUsesState"></span></div>
 <div class="controls">
 <label>Alarm sound<select id="pattern"><option value="siren">Emergency Siren</option><option value="high">High-Pitch Alarm</option><option value="pulse">Pulse Alarm</option><option value="sos">SOS Alarm</option></select></label>
 <label>Volume <span id="volumeLabel">100%</span><input id="volume" type="range" min="10" max="100" value="100"></label>
@@ -71,6 +72,17 @@
     <div class="privacy-state" id="notifyState">Notifications are off.</div>
   </div>
 </div>
+<div class="paywall" id="paywall" hidden role="dialog" aria-modal="true" aria-labelledby="paywallTitle">
+  <div class="paywall-card">
+    <h2 id="paywallTitle">Unlock unlimited siren access</h2>
+    <p>You have used your 3 free siren activations. Make a one-time PayPal payment to unlock unlimited activations on this browser identity.</p>
+    <div class="unlock-price">$5.00 <span>USD • one-time unlock</span></div>
+    <button class="paypal-button" id="paypalUnlock" type="button">UNLOCK WITH PAYPAL — $5.00</button>
+    <button class="restore-button" id="restoreUnlock" type="button">CHECK PAYMENT / RESTORE ACCESS</button>
+    <button class="close-paywall" id="closePaywall" type="button">NOT NOW</button>
+    <div class="payment-state" id="paymentState">Payment must be confirmed by PayPal before the siren unlocks.</div>
+  </div>
+</div>
 <div class="status" id="status"><span class="dot"></span><span id="statusText">Ready</span></div>
 <p class="safety">Do not place the speaker directly against your ear. This tool is for attracting attention and does not contact emergency services.</p>
 </section>
@@ -88,7 +100,10 @@
         officialMode=$('officialMode'),officialArea=$('officialArea'),
         refreshAlertsBtn=$('refreshAlerts'),officialState=$('officialState'),officialAlerts=$('officialAlerts'),
         connectionState=$('connectionState'),installApp=$('installApp'),alarmAudio=$('alarmAudio'),
-        audioDiagnostic=$('audioDiagnostic'),iosAudioNotice=$('iosAudioNotice');
+        audioDiagnostic=$('audioDiagnostic'),iosAudioNotice=$('iosAudioNotice'),
+        accessState=$('accessState'),freeUsesState=$('freeUsesState'),
+        paywall=$('paywall'),paypalUnlock=$('paypalUnlock'),
+        restoreUnlock=$('restoreUnlock'),closePaywall=$('closePaywall'),paymentState=$('paymentState');
 
   let ctx=null,nodes=[],timers=[],flashTimer=null,active=false;
   let safetySession=null;
@@ -97,6 +112,10 @@
   let installPrompt=null;
   let offlineShellReady=false;
   let usingMediaAudio=false;
+  let sirenAccessToken=null;
+  let sirenAccess=null;
+  let accessBootstrapPromise=null;
+  const ACCESS_TOKEN_KEY='activateSirenAccessTokenV1';
   const isIOS=/iPhone|iPad|iPod/i.test(navigator.userAgent)||
     (navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
   const labels={siren:'Emergency Siren',high:'High-Pitch Alarm',pulse:'Pulse Alarm',sos:'SOS Alarm'};
@@ -134,6 +153,279 @@
     alarmAudio.setAttribute('x-webkit-airplay','deny');
     try{ alarmAudio.disableRemotePlayback=true; }catch(e){}
     alarmAudio.load();
+  }
+
+  function readAccessToken(){
+    try{return localStorage.getItem(ACCESS_TOKEN_KEY)||sessionStorage.getItem(ACCESS_TOKEN_KEY)||'';}
+    catch(e){
+      try{return sessionStorage.getItem(ACCESS_TOKEN_KEY)||'';}catch(err){return '';}
+    }
+  }
+
+  function saveAccessToken(token){
+    sirenAccessToken=token||'';
+    if(!token) return;
+    try{localStorage.setItem(ACCESS_TOKEN_KEY,token);return;}catch(e){}
+    try{sessionStorage.setItem(ACCESS_TOKEN_KEY,token);}catch(e){}
+  }
+
+  function clearAccessToken(){
+    sirenAccessToken='';
+    try{localStorage.removeItem(ACCESS_TOKEN_KEY);}catch(e){}
+    try{sessionStorage.removeItem(ACCESS_TOKEN_KEY);}catch(e){}
+  }
+
+  function accessHeaders(extra={}){
+    return sirenAccessToken
+      ? {...extra,authorization:'Bearer '+sirenAccessToken}
+      : {...extra};
+  }
+
+  function updateAccessUI(access){
+    if(!access) return;
+    sirenAccess=access;
+    if(access.creator){
+      accessState.textContent='Creator access';
+      freeUsesState.textContent='Unlimited';
+      return;
+    }
+    if(access.unlimited){
+      accessState.textContent=access.paid?'PayPal unlock confirmed':'Unlimited access';
+      freeUsesState.textContent='Unlimited';
+      paywall.hidden=true;
+      return;
+    }
+    accessState.textContent=access.locked?'3 free activations used':'3 free siren activations';
+    freeUsesState.textContent=String(access.freeUses)+' / 3 used';
+  }
+
+  async function createAccessIdentity(){
+    const res=await fetch('/api/siren-access',{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({action:'bootstrap'}),
+      cache:'no-store'
+    });
+    const data=await res.json().catch(()=>({}));
+    if(!res.ok||!data.accessToken||!data.access){
+      throw new Error(data.error||'Could not create siren access identity');
+    }
+    saveAccessToken(data.accessToken);
+    updateAccessUI(data.access);
+    return data.access;
+  }
+
+  async function refreshSirenAccess({allowBootstrap=true}={}){
+    if(!sirenAccessToken) sirenAccessToken=readAccessToken();
+    if(!sirenAccessToken){
+      if(!allowBootstrap) return null;
+      return createAccessIdentity();
+    }
+
+    const res=await fetch('/api/siren-access',{
+      headers:accessHeaders(),
+      cache:'no-store'
+    });
+    const data=await res.json().catch(()=>({}));
+
+    if(res.status===401&&allowBootstrap){
+      clearAccessToken();
+      return createAccessIdentity();
+    }
+    if(!res.ok||!data.access){
+      throw new Error(data.error||'Could not verify siren access');
+    }
+
+    updateAccessUI(data.access);
+    return data.access;
+  }
+
+  function ensureAccessReady(){
+    if(!accessBootstrapPromise){
+      accessBootstrapPromise=refreshSirenAccess().catch((error)=>{
+        accessState.textContent='Online access check unavailable';
+        freeUsesState.textContent='';
+        console.warn('Siren access bootstrap failed.',error);
+        throw error;
+      }).finally(()=>{accessBootstrapPromise=null;});
+    }
+    return accessBootstrapPromise;
+  }
+
+  async function consumeSirenUse(){
+    await ensureAccessReady();
+
+    let res=await fetch('/api/siren-access',{
+      method:'POST',
+      headers:accessHeaders({'content-type':'application/json'}),
+      body:JSON.stringify({action:'consume'}),
+      cache:'no-store'
+    });
+    let data=await res.json().catch(()=>({}));
+
+    if(res.status===401){
+      clearAccessToken();
+      await createAccessIdentity();
+      res=await fetch('/api/siren-access',{
+        method:'POST',
+        headers:accessHeaders({'content-type':'application/json'}),
+        body:JSON.stringify({action:'consume'}),
+        cache:'no-store'
+      });
+      data=await res.json().catch(()=>({}));
+    }
+
+    if(data.access) updateAccessUI(data.access);
+
+    if(res.status===402||data.paymentRequired){
+      showPaywall('Your 3 free activations have been used. PayPal must confirm the $5.00 payment before unlimited access is enabled.');
+      return false;
+    }
+
+    if(!res.ok||!data.allowed){
+      throw new Error(data.error||'Siren access could not be verified');
+    }
+
+    return true;
+  }
+
+  function showPaywall(message){
+    paywall.hidden=false;
+    if(message) paymentState.textContent=message;
+  }
+
+  function hidePaywall(){
+    paywall.hidden=true;
+  }
+
+  function primeAlarmForGate(){
+    stopAlarm();
+    prepareMediaAudio();
+    alarmAudio.volume=0;
+    alarmAudio.muted=false;
+    alarmAudio.currentTime=0;
+    try{
+      const p=alarmAudio.play();
+      if(p&&p.catch) p.catch(()=>{});
+    }catch(e){}
+  }
+
+  function cancelPrimedAlarm(){
+    try{
+      alarmAudio.pause();
+      alarmAudio.currentTime=0;
+      alarmAudio.volume=Math.max(0.1,Number(volume.value)/100);
+    }catch(e){}
+  }
+
+  async function startPaidActivation(){
+    primeAlarmForGate();
+    activate.disabled=true;
+    setStatus('Checking siren access…',false);
+
+    try{
+      const allowed=await consumeSirenUse();
+      if(!allowed){
+        cancelPrimedAlarm();
+        setStatus('Unlock required after 3 free activations',false);
+        return;
+      }
+      startAlarm(false,true);
+    }catch(error){
+      cancelPrimedAlarm();
+      setStatus('Online access check required for activation',false);
+      accessState.textContent='Access check unavailable';
+      console.warn('Siren activation gate failed.',error);
+    }finally{
+      activate.disabled=false;
+    }
+  }
+
+  async function beginPaypalUnlock(){
+    paypalUnlock.disabled=true;
+    paymentState.textContent='Creating secure PayPal checkout…';
+    try{
+      await ensureAccessReady();
+      const res=await fetch('/api/paypal/create-order',{
+        method:'POST',
+        headers:accessHeaders({'content-type':'application/json'}),
+        body:'{}',
+        cache:'no-store'
+      });
+      const data=await res.json().catch(()=>({}));
+      if(!res.ok||!data.approvalUrl){
+        throw new Error(data.error||'Could not start PayPal checkout');
+      }
+      paymentState.textContent='Opening PayPal…';
+      location.assign(data.approvalUrl);
+    }catch(error){
+      paymentState.textContent=error.message||'Could not start PayPal checkout.';
+      paypalUnlock.disabled=false;
+    }
+  }
+
+  async function capturePaypalReturn(orderId){
+    if(!orderId) return false;
+    paymentState.textContent='Verifying completed PayPal payment…';
+    showPaywall();
+    try{
+      await ensureAccessReady();
+      const res=await fetch('/api/paypal/capture-order',{
+        method:'POST',
+        headers:accessHeaders({'content-type':'application/json'}),
+        body:JSON.stringify({orderId}),
+        cache:'no-store'
+      });
+      const data=await res.json().catch(()=>({}));
+      if(!res.ok||!data.unlocked){
+        throw new Error(data.error||'PayPal payment is not completed yet');
+      }
+      updateAccessUI(data.access);
+      paymentState.textContent='Payment confirmed. Unlimited siren access is unlocked.';
+      setTimeout(hidePaywall,700);
+      return true;
+    }catch(error){
+      paymentState.textContent=(error.message||'Payment verification failed')+' Use CHECK PAYMENT / RESTORE ACCESS to retry.';
+      return false;
+    }finally{
+      const clean=new URL(location.href);
+      clean.searchParams.delete('paypal');
+      clean.searchParams.delete('token');
+      clean.searchParams.delete('PayerID');
+      history.replaceState({},'',clean.pathname+clean.search+clean.hash);
+    }
+  }
+
+  async function restorePaidAccess(){
+    restoreUnlock.disabled=true;
+    paymentState.textContent='Checking server entitlement…';
+    try{
+      const access=await refreshSirenAccess();
+      if(access&&access.unlimited){
+        updateAccessUI(access);
+        paymentState.textContent='Unlimited access restored.';
+        setTimeout(hidePaywall,600);
+      }else{
+        paymentState.textContent='No completed $5.00 PayPal unlock is attached to this browser identity yet.';
+      }
+    }catch(error){
+      paymentState.textContent=error.message||'Could not check payment status.';
+    }finally{
+      restoreUnlock.disabled=false;
+    }
+  }
+
+  async function handlePaypalReturn(){
+    const params=new URLSearchParams(location.search);
+    if(params.get('paypal')==='cancel'){
+      showPaywall('PayPal checkout was cancelled. No charge was used to unlock the siren.');
+      params.delete('paypal');
+      history.replaceState({},'',location.pathname+(params.toString()?'?'+params.toString():'')+location.hash);
+      return;
+    }
+    if(params.get('paypal')==='return'){
+      await capturePaypalReturn(params.get('token'));
+    }
   }
 
   function updateConnectivity(){
@@ -597,37 +889,44 @@
     }
   }
 
-  function startAlarm(low=false){
-    stopAlarm();
+  function startAlarm(low=false,primed=false){
+    if(!primed) stopAlarm();
     const p=pattern.value;
 
-    prepareMediaAudio();
+    if(!primed){
+      prepareMediaAudio();
+      alarmAudio.currentTime=0;
+    }
     alarmAudio.volume=low?0.12:Math.max(0.1,Number(volume.value)/100);
     alarmAudio.muted=false;
-    alarmAudio.currentTime=0;
 
     const playbackStart=alarmAudio.currentTime||0;
     setAudioDiagnostic('Sound check: starting browser audio…');
 
-    let playResult;
-    try{
-      playResult=alarmAudio.play();
+    let playResult=null;
+    if(primed&&!alarmAudio.paused){
       usingMediaAudio=true;
-    }catch(err){
-      usingMediaAudio=false;
-      setAudioDiagnostic('Sound check: media playback was blocked; trying Web Audio fallback.');
-      startWebAudioFallback(p,low);
-    }
-
-    if(playResult&&playResult.then){
-      playResult.then(()=>{
-        setAudioDiagnostic('Sound check: browser accepted audio playback — checking output…');
-      }).catch((err)=>{
-        console.warn('HTML audio playback was blocked; using Web Audio fallback.',err);
+      setAudioDiagnostic('Sound check: browser audio primed — checking output…');
+    }else{
+      try{
+        playResult=alarmAudio.play();
+        usingMediaAudio=true;
+      }catch(err){
         usingMediaAudio=false;
-        setAudioDiagnostic('Sound check: browser rejected media playback; Web Audio fallback started.');
-        if(!ctx) startWebAudioFallback(p,low);
-      });
+        setAudioDiagnostic('Sound check: media playback was blocked; trying Web Audio fallback.');
+        startWebAudioFallback(p,low);
+      }
+
+      if(playResult&&playResult.then){
+        playResult.then(()=>{
+          setAudioDiagnostic('Sound check: browser accepted audio playback — checking output…');
+        }).catch((err)=>{
+          console.warn('HTML audio playback was blocked; using Web Audio fallback.',err);
+          usingMediaAudio=false;
+          setAudioDiagnostic('Sound check: browser rejected media playback; Web Audio fallback started.');
+          if(!ctx) startWebAudioFallback(p,low);
+        });
+      }
     }
 
     active=true;
@@ -661,8 +960,11 @@
     },900));
   }
 
-  activate.addEventListener('click',()=>startAlarm(false),{passive:true});
+  activate.addEventListener('click',startPaidActivation);
   test.addEventListener('click',()=>startAlarm(true),{passive:true});
+  paypalUnlock.addEventListener('click',beginPaypalUnlock);
+  restoreUnlock.addEventListener('click',restorePaidAccess);
+  closePaywall.addEventListener('click',hidePaywall);
   stopBtn.addEventListener('click',stopAlarm);
   window.addEventListener('online',updateConnectivity);
   window.addEventListener('offline',updateConnectivity);
@@ -759,6 +1061,9 @@
   if(isIOS){
     iosAudioNotice.hidden=false;
   }
+  sirenAccessToken=readAccessToken();
+  ensureAccessReady().catch(()=>{});
+  handlePaypalReturn().catch((error)=>console.warn('PayPal return handling failed.',error));
   prepareMediaAudio();
   window.addEventListener('pagehide',stopAlarm);
 })();
