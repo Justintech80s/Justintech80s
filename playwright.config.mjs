@@ -46,5 +46,12 @@ export default defineConfig({
         userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
       },
     },
+    {
+      name: "firefox-desktop",
+      use: {
+        browserName: "firefox",
+        viewport: { width: 1280, height: 800 },
+      },
+    },
   ],
 });
