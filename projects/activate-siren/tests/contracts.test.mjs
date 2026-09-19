@@ -157,7 +157,7 @@ test("native media alarm is primary with Web Audio fallback", () => {
 test("iPhone audio prefers AAC media", () => {
   assert.match(html, /audio\/mp4/);
   assert.match(html, /siren-ios-v3\.m4a/);
-  assert.match(serviceWorker, /activate-siren-shell-v5/);
+  assert.match(serviceWorker, /activate-siren-shell-v6/);
   assert.match(html, /Silent Mode off/);
   assert.doesNotMatch(html, /navigator\.vibrate|id="vibrate"|Vibrate on supported phones/);
 });
@@ -199,7 +199,7 @@ test("PayPal webhook is signature verified before applying unlock", () => {
   assert.match(paypalWebhook, /unlockVisitor/);
 });
 
-test("PayPal secrets and unlock price remain environment configured", () => {
+test("PayPal secrets remain environment configured and price defaults to $5", () => {
   for (const name of [
     "PAYPAL_CLIENT_ID",
     "PAYPAL_CLIENT_SECRET",
@@ -209,6 +209,8 @@ test("PayPal secrets and unlock price remain environment configured", () => {
   ]) {
     assert.match(accessLib + paypalWebhook, new RegExp("process\\.env\\." + name));
   }
+  assert.match(accessLib, /SIREN_UNLOCK_PRICE \|\| "5\.00"/);
+  assert.match(html, /UNLOCK WITH PAYPAL — \$5\.00/);
   assert.match(health, /paypalConfigured/);
   assert.match(health, /creatorBypassConfigured/);
 });
