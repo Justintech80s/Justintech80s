@@ -137,7 +137,14 @@ test("real WAV alarm media is the primary playback path", () => {
   assert.match(html, /src="\.\/audio\/siren\.wav"/);
   assert.match(html, /alarmAudio\.play\(\)/);
   assert.match(html, /startWebAudioFallback/);
-  for (const file of ["siren.wav", "high.wav", "pulse.wav", "sos.wav"]) {
+  for (const file of ["siren-44k-v2.wav", "high-44k-v2.wav", "pulse-44k-v2.wav", "sos-44k-v2.wav"]) {
     assert.match(serviceWorker, new RegExp("audio/" + file.replace(".", "\\.")));
   }
+});
+
+
+test("iPhone-compatible audio uses versioned 44.1 kHz 16-bit WAV assets", () => {
+  assert.match(html, /siren-44k-v2\.wav/);
+  assert.match(serviceWorker, /activate-siren-shell-v3/);
+  assert.match(html, /Vibration unavailable in this browser/);
 });

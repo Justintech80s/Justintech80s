@@ -1,13 +1,13 @@
-const CACHE_NAME = "activate-siren-shell-v1";
+const CACHE_NAME = "activate-siren-shell-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
   "./icons/activate-siren.svg",
-  "./audio/siren.wav",
-  "./audio/high.wav",
-  "./audio/pulse.wav",
-  "./audio/sos.wav"
+  "./audio/siren-44k-v2.wav",
+  "./audio/high-44k-v2.wav",
+  "./audio/pulse-44k-v2.wav",
+  "./audio/sos-44k-v2.wav"
 ];
 
 self.addEventListener("install", (event) => {

@@ -48,3 +48,7 @@ Headless browser testing verifies application behavior but cannot prove physical
 
 ## Audio compatibility
 The production alarm now uses pre-generated WAV media files as the primary playback path. Playback is started directly from the user's button tap, which is more compatible with mobile Safari and mobile Chromium than relying only on an oscillator-based AudioContext. The original Web Audio generator remains as a fallback if the media element is rejected.
+
+
+## iPhone audio hardening
+The iPhone-focused audio revision uses cache-busted, standard 44.1 kHz 16-bit mono PCM WAV assets. The service-worker cache generation was advanced so previously cached low-rate alarm files are discarded. The UI also disables the vibration option when the browser does not expose the Vibration API.

@@ -23,7 +23,7 @@
 <p class="subtitle">A one-tap loud alarm for attracting attention in an emergency.</p>
 <div class="notice"><strong>Turn your device volume up.</strong><span>This site cannot override your phone's hardware volume or silent-mode restrictions.</span></div>
 <div class="app-tools"><span class="connection" id="connectionState">Online • preparing offline alarm</span><button class="install" id="installApp" type="button" hidden>INSTALL APP</button></div>
-<audio id="alarmAudio" preload="auto" loop playsinline src="./audio/siren.wav"></audio>
+<audio id="alarmAudio" preload="auto" loop playsinline src="./audio/siren-44k-v2.wav"></audio>
 <button class="activate" id="activate"><span class="speaker">🔊</span>ACTIVATE SIREN</button>
 <button class="stop" id="stop" hidden>■ STOP ALARM</button>
 <button class="test" id="test">TEST AT LOW VOLUME</button>
@@ -31,7 +31,7 @@
 <label>Alarm sound<select id="pattern"><option value="siren">Emergency Siren</option><option value="high">High-Pitch Alarm</option><option value="pulse">Pulse Alarm</option><option value="sos">SOS Alarm</option></select></label>
 <label>Volume <span id="volumeLabel">100%</span><input id="volume" type="range" min="10" max="100" value="100"></label>
 <label class="toggle"><input id="flash" type="checkbox"><span>Flash screen while alarm is active</span></label>
-<label class="toggle"><input id="vibrate" type="checkbox"><span>Vibrate on supported phones</span></label>
+<label class="toggle"><input id="vibrate" type="checkbox"><span id="vibrateText">Vibrate on supported phones</span></label>
 </div>
 <div class="safety-tools">
   <div class="tool-card">
@@ -79,7 +79,7 @@
   const $=id=>document.getElementById(id);
   const page=$('page'),activate=$('activate'),stopBtn=$('stop'),test=$('test'),
         pattern=$('pattern'),volume=$('volume'),volumeLabel=$('volumeLabel'),
-        flash=$('flash'),vibrate=$('vibrate'),status=$('status'),statusText=$('statusText'),
+        flash=$('flash'),vibrate=$('vibrate'),vibrateText=$('vibrateText'),status=$('status'),statusText=$('statusText'),
         locationConsent=$('locationConsent'),shareLocationBtn=$('shareLocation'),locationState=$('locationState'),
         contactName=$('contactName'),contactType=$('contactType'),contactValue=$('contactValue'),
         addContactBtn=$('addContact'),contactsList=$('contactsList'),contactsState=$('contactsState'),
@@ -97,10 +97,10 @@
   let usingMediaAudio=false;
   const labels={siren:'Emergency Siren',high:'High-Pitch Alarm',pulse:'Pulse Alarm',sos:'SOS Alarm'};
   const soundFiles={
-    siren:'./audio/siren.wav',
-    high:'./audio/high.wav',
-    pulse:'./audio/pulse.wav',
-    sos:'./audio/sos.wav'
+    siren:'./audio/siren-44k-v2.wav',
+    high:'./audio/high-44k-v2.wav',
+    pulse:'./audio/pulse-44k-v2.wav',
+    sos:'./audio/sos-44k-v2.wav'
   };
 
   function prepareMediaAudio(){
@@ -716,6 +716,11 @@
   alarmAudio.addEventListener('error',()=>{
     console.warn('Alarm WAV could not be loaded; Web Audio fallback will be used.');
   });
+  if(typeof navigator.vibrate!=='function'){
+    vibrate.checked=false;
+    vibrate.disabled=true;
+    vibrateText.textContent='Vibration unavailable in this browser';
+  }
   prepareMediaAudio();
   window.addEventListener('pagehide',stopAlarm);
 })();

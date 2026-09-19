@@ -140,7 +140,7 @@ test("loads the emergency interface and starts/stops the local siren", async ({ 
     src: audio.currentSrc || audio.src,
     readyState: audio.readyState
   }));
-  expect(mediaState.src).toContain("/audio/siren.wav");
+  expect(mediaState.src).toContain("/audio/siren-44k-v2.wav");
   expect(mediaState.readyState).toBeGreaterThanOrEqual(2);
 
   await page.getByRole("button", { name: /STOP ALARM/i }).click();
