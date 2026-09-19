@@ -152,7 +152,7 @@ test("native media alarm is primary with Web Audio fallback", () => {
 test("iPhone audio prefers AAC media", () => {
   assert.match(html, /audio\/mp4/);
   assert.match(html, /siren-ios-v3\.m4a/);
-  assert.match(serviceWorker, /activate-siren-shell-v4/);
+  assert.match(serviceWorker, /activate-siren-shell-v5/);
   assert.match(html, /Silent Mode off/);
   assert.doesNotMatch(html, /navigator\.vibrate|id="vibrate"|Vibrate on supported phones/);
 });
