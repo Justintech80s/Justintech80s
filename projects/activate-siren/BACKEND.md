@@ -134,7 +134,7 @@ A site can configure email only, SMS only, or both. The notification endpoint re
 
 ## Reliability
 
-The siren and screen-flash features remain local to the browser. Failure of the backend, location service, or contact synchronization must not prevent the siren from sounding.
+The siren audio and screen-flash effects run locally in the browser. The low-volume test remains local. Real siren activations now require an online access check so the three-use payment gate can be enforced consistently; if that access check is unavailable, a metered real activation does not start.
 
 
 ## Official public-safety alerts
@@ -230,7 +230,7 @@ This value belongs in the deployment environment, never in browser JavaScript.
 
 Requires the bearer token.
 
-An order can only be created after all three free activations have been consumed. The amount and currency come only from server environment variables.
+An order can only be created after all three free activations have been consumed. The backend price defaults to $5.00 USD and is verified again at capture/webhook time.
 
 The endpoint returns:
 
@@ -280,7 +280,7 @@ PAYPAL_CLIENT_ID=
 PAYPAL_CLIENT_SECRET=
 PAYPAL_WEBHOOK_ID=
 
-SIREN_UNLOCK_PRICE=
+SIREN_UNLOCK_PRICE=5.00
 SIREN_UNLOCK_CURRENCY=USD
 
 ACTIVATE_SIREN_CREATOR_VISITOR_ID=
@@ -288,10 +288,19 @@ ACTIVATE_SIREN_CREATOR_VISITOR_ID=
 
 Use `PAYPAL_ENV=sandbox` until the entire checkout flow has been tested. Set `PAYPAL_ENV=live` only when the production PayPal app is ready.
 
-No default unlock price is hard-coded. `SIREN_UNLOCK_PRICE` must be supplied explicitly in two-decimal format, such as `9.99`.
+The unlock price defaults to **$5.00 USD** in the backend. `SIREN_UNLOCK_PRICE` remains available as a server-side override, but the intended production price is `5.00` and the website displays that same amount.
 
 ### Identity limitation
 
 This implementation uses a random server-issued browser identity rather than a required user account. That prevents a normal browser from changing a local `paid=true` flag to unlock itself, and all counters and entitlements live on the backend.
 
 However, an anonymous browser identity is not the same as a verified human account. A person who intentionally clears the access token or switches browsers/devices can obtain a new identity. Strong one-person enforcement would require account authentication (for example, email/passkey login) before the three-use counter is considered fully tamper-resistant across devices.
+
+
+### Browser compatibility
+
+The payment gate uses standards-based `fetch`, `localStorage` with `sessionStorage` fallback, normal HTTPS redirects, and server-side bearer tokens. Automated browser coverage runs against Chromium (Chrome/Edge engine), WebKit (Safari engine), and Firefox.
+
+The client silently primes the alarm media element during the original activation tap before awaiting the server access decision. This preserves Safari/iPhone user-gesture audio requirements while keeping the fourth unpaid activation inaudible and locked.
+
+The PayPal return flow preserves the server-issued access token in browser storage, captures the PayPal order on return, verifies the completed capture server-side, and refreshes the unlimited entitlement before the siren can be used again.
