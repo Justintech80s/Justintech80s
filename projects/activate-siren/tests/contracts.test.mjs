@@ -134,7 +134,7 @@ test("deployment health endpoint exposes readiness without secrets", () => {
 
 test("real WAV alarm media is the primary playback path", () => {
   assert.match(html, /id="alarmAudio"/);
-  assert.match(html, /src="\.\/audio\/siren\.wav"/);
+  assert.match(html, /src="\.\/audio\/siren-44k-v2\.wav"/);
   assert.match(html, /alarmAudio\.play\(\)/);
   assert.match(html, /startWebAudioFallback/);
   for (const file of ["siren-44k-v2.wav", "high-44k-v2.wav", "pulse-44k-v2.wav", "sos-44k-v2.wav"]) {
