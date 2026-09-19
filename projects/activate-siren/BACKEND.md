@@ -134,7 +134,7 @@ A site can configure email only, SMS only, or both. The notification endpoint re
 
 ## Reliability
 
-The siren, flash, and vibration features remain local to the browser. Failure of the backend, location service, or contact synchronization must not prevent the siren from sounding.
+The siren and screen-flash features remain local to the browser. Failure of the backend, location service, or contact synchronization must not prevent the siren from sounding.
 
 
 ## Official public-safety alerts
@@ -161,3 +161,137 @@ Important boundaries:
 - This first integration should not be treated as a guarantee that every AMBER Alert issued anywhere in the United States will appear in this feed; the UI identifies the government source for the alerts it does receive.
 
 The backend sends a distinct User-Agent to the NWS API and caches successful responses briefly to reduce unnecessary load.
+
+
+## Three-use siren gate and PayPal unlock
+
+The backend now supports three free siren activations per server-issued access identity, followed by a PayPal unlock for unlimited access.
+
+### Access identity
+
+`POST /api/siren-access`
+
+Bootstrap an anonymous access identity:
+
+```json
+{
+  "action": "bootstrap"
+}
+```
+
+The response includes a random bearer `accessToken` and an access snapshot. The token must be retained by the client and sent in:
+
+`Authorization: Bearer <accessToken>`
+
+The token secret is stored only as a SHA-256 hash on the backend.
+
+### Check access
+
+`GET /api/siren-access`
+
+Requires the bearer token and returns:
+
+- number of free uses consumed
+- remaining free uses
+- whether the identity is locked
+- whether the identity has unlimited access
+- whether the identity is configured as the creator
+
+### Consume a siren activation
+
+`POST /api/siren-access`
+
+```json
+{
+  "action": "consume"
+}
+```
+
+Behavior:
+
+1. Uses 1 through 3 return `allowed: true`.
+2. The third use is allowed and leaves zero free uses remaining.
+3. The fourth and later unpaid attempts return HTTP `402` with `paymentRequired: true`.
+4. Paid or creator identities are allowed without incrementing the free-use count.
+
+The free-use counter uses Netlify Blobs ETags and `onlyIfMatch` conditional writes so concurrent activation requests cannot reuse the same counter state.
+
+### Creator bypass
+
+The creator is exempt from the free-use limit when the server-issued visitor ID matches:
+
+`ACTIVATE_SIREN_CREATOR_VISITOR_ID`
+
+This value belongs in the deployment environment, never in browser JavaScript.
+
+### Create PayPal unlock order
+
+`POST /api/paypal/create-order`
+
+Requires the bearer token.
+
+An order can only be created after all three free activations have been consumed. The amount and currency come only from server environment variables.
+
+The endpoint returns:
+
+- PayPal order ID
+- PayPal approval URL
+- configured amount and currency
+
+### Capture and unlock
+
+`POST /api/paypal/capture-order`
+
+Body:
+
+```json
+{
+  "orderId": "PAYPAL_ORDER_ID"
+}
+```
+
+Requires the same bearer token that created the order.
+
+Unlimited access is granted only after the backend verifies:
+
+- the PayPal order belongs to the same access identity
+- the capture status is exactly `COMPLETED`
+- capture amount exactly matches the stored order amount
+- capture currency exactly matches the stored order currency
+- the PayPal capture ID has not already been used for another identity
+
+A `PENDING`, `FAILED`, `DECLINED`, or otherwise incomplete capture does not unlock the siren.
+
+### PayPal webhook
+
+`POST /api/paypal/webhook`
+
+The webhook verifies PayPal's signature through PayPal's webhook verification endpoint before processing the event.
+
+Only `PAYMENT.CAPTURE.COMPLETED` events can grant access. The webhook rechecks the stored order, amount, currency, and unique capture ID before applying the unlimited entitlement.
+
+Configure the PayPal app to send `PAYMENT.CAPTURE.COMPLETED` to this HTTPS endpoint.
+
+### Required environment variables
+
+```text
+PAYPAL_ENV=sandbox
+PAYPAL_CLIENT_ID=
+PAYPAL_CLIENT_SECRET=
+PAYPAL_WEBHOOK_ID=
+
+SIREN_UNLOCK_PRICE=
+SIREN_UNLOCK_CURRENCY=USD
+
+ACTIVATE_SIREN_CREATOR_VISITOR_ID=
+```
+
+Use `PAYPAL_ENV=sandbox` until the entire checkout flow has been tested. Set `PAYPAL_ENV=live` only when the production PayPal app is ready.
+
+No default unlock price is hard-coded. `SIREN_UNLOCK_PRICE` must be supplied explicitly in two-decimal format, such as `9.99`.
+
+### Identity limitation
+
+This implementation uses a random server-issued browser identity rather than a required user account. That prevents a normal browser from changing a local `paid=true` flag to unlock itself, and all counters and entitlements live on the backend.
+
+However, an anonymous browser identity is not the same as a verified human account. A person who intentionally clears the access token or switches browsers/devices can obtain a new identity. Strong one-person enforcement would require account authentication (for example, email/passkey login) before the three-use counter is considered fully tamper-resistant across devices.
