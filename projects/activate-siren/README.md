@@ -6,6 +6,7 @@ Free, browser-based emergency attention alarm.
 
 ## Features
 - One-tap siren
+- Real WAV alarm playback as the primary mobile-compatible audio path, with Web Audio fallback
 - Emergency Siren, High-Pitch, Pulse, and SOS patterns
 - Adjustable volume
 - Low-volume test mode
@@ -43,3 +44,7 @@ Automated browser smoke tests run in GitHub Actions with pinned Playwright 1.63.
 - service-worker installation and offline reload
 
 Headless browser testing verifies application behavior but cannot prove physical speaker loudness, device mute-switch behavior, or vibration hardware. Those remain physical-device checks.
+
+
+## Audio compatibility
+The production alarm now uses pre-generated WAV media files as the primary playback path. Playback is started directly from the user's button tap, which is more compatible with mobile Safari and mobile Chromium than relying only on an oscillator-based AudioContext. The original Web Audio generator remains as a fallback if the media element is rejected.

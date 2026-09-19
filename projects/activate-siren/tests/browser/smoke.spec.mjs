@@ -129,6 +129,19 @@ test("loads the emergency interface and starts/stops the local siren", async ({ 
   await page.getByRole("button", { name: /ACTIVATE SIREN/i }).click();
   await expect(page.getByRole("button", { name: /STOP ALARM/i })).toBeVisible();
   await expect(page.locator("#statusText")).toContainText("Alarm active");
+  await expect.poll(async () => page.locator("#alarmAudio").evaluate((audio) => ({
+    paused: audio.paused,
+    src: audio.currentSrc || audio.src,
+    readyState: audio.readyState
+  }))).toMatchObject({
+    paused: false
+  });
+  const mediaState = await page.locator("#alarmAudio").evaluate((audio) => ({
+    src: audio.currentSrc || audio.src,
+    readyState: audio.readyState
+  }));
+  expect(mediaState.src).toContain("/audio/siren.wav");
+  expect(mediaState.readyState).toBeGreaterThanOrEqual(2);
 
   await page.getByRole("button", { name: /STOP ALARM/i }).click();
   await expect(page.getByRole("button", { name: /ACTIVATE SIREN/i })).toBeVisible();

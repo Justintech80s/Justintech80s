@@ -3,7 +3,11 @@ const APP_SHELL = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./icons/activate-siren.svg"
+  "./icons/activate-siren.svg",
+  "./audio/siren.wav",
+  "./audio/high.wav",
+  "./audio/pulse.wav",
+  "./audio/sos.wav"
 ];
 
 self.addEventListener("install", (event) => {

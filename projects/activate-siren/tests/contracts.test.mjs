@@ -130,3 +130,14 @@ test("deployment health endpoint exposes readiness without secrets", () => {
   assert.doesNotMatch(health, /apiKey\s*:\s*process\.env/);
   assert.doesNotMatch(health, /authToken\s*:\s*process\.env/);
 });
+
+
+test("real WAV alarm media is the primary playback path", () => {
+  assert.match(html, /id="alarmAudio"/);
+  assert.match(html, /src="\.\/audio\/siren\.wav"/);
+  assert.match(html, /alarmAudio\.play\(\)/);
+  assert.match(html, /startWebAudioFallback/);
+  for (const file of ["siren.wav", "high.wav", "pulse.wav", "sos.wav"]) {
+    assert.match(serviceWorker, new RegExp("audio/" + file.replace(".", "\\.")));
+  }
+});

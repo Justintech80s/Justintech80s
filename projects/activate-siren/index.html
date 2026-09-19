@@ -23,6 +23,7 @@
 <p class="subtitle">A one-tap loud alarm for attracting attention in an emergency.</p>
 <div class="notice"><strong>Turn your device volume up.</strong><span>This site cannot override your phone's hardware volume or silent-mode restrictions.</span></div>
 <div class="app-tools"><span class="connection" id="connectionState">Online • preparing offline alarm</span><button class="install" id="installApp" type="button" hidden>INSTALL APP</button></div>
+<audio id="alarmAudio" preload="auto" loop playsinline src="./audio/siren.wav"></audio>
 <button class="activate" id="activate"><span class="speaker">🔊</span>ACTIVATE SIREN</button>
 <button class="stop" id="stop" hidden>■ STOP ALARM</button>
 <button class="test" id="test">TEST AT LOW VOLUME</button>
@@ -85,7 +86,7 @@
         notifyContacts=$('notifyContacts'),notifyState=$('notifyState'),
         officialMode=$('officialMode'),officialArea=$('officialArea'),
         refreshAlertsBtn=$('refreshAlerts'),officialState=$('officialState'),officialAlerts=$('officialAlerts'),
-        connectionState=$('connectionState'),installApp=$('installApp');
+        connectionState=$('connectionState'),installApp=$('installApp'),alarmAudio=$('alarmAudio');
 
   let ctx=null,nodes=[],timers=[],flashTimer=null,vibTimer=null,active=false;
   let safetySession=null;
@@ -93,7 +94,23 @@
   let lastLocation=null;
   let installPrompt=null;
   let offlineShellReady=false;
+  let usingMediaAudio=false;
   const labels={siren:'Emergency Siren',high:'High-Pitch Alarm',pulse:'Pulse Alarm',sos:'SOS Alarm'};
+  const soundFiles={
+    siren:'./audio/siren.wav',
+    high:'./audio/high.wav',
+    pulse:'./audio/pulse.wav',
+    sos:'./audio/sos.wav'
+  };
+
+  function prepareMediaAudio(){
+    const wanted=new URL(soundFiles[pattern.value],location.href).href;
+    if(alarmAudio.src!==wanted){
+      alarmAudio.src=soundFiles[pattern.value];
+      alarmAudio.load();
+    }
+    alarmAudio.loop=true;
+  }
 
   function updateConnectivity(){
     if(navigator.onLine){
@@ -409,6 +426,11 @@
 
   function stopAlarm(){
     if(active) closeSafetySession('resolved');
+    try{
+      alarmAudio.pause();
+      alarmAudio.currentTime=0;
+    }catch(e){}
+    usingMediaAudio=false;
     lastLocation=null;
     locationState.textContent=locationConsent.checked
       ? 'Location sharing is enabled for the next activation.'
@@ -475,11 +497,8 @@
     }
   }
 
-  function startAlarm(low=false){
-    stopAlarm();
-
+  function startWebAudioFallback(p,low){
     try{
-      // IMPORTANT: create and unlock audio synchronously inside the user's tap.
       ctx=createAudioContext();
       unlockIOSAudio();
 
@@ -488,8 +507,6 @@
       master.gain.setValueAtTime(low?0.045:Math.max(0.08,selectedVolume*0.55),ctx.currentTime);
       master.connect(ctx.destination);
       nodes.push(master);
-
-      const p=pattern.value;
 
       if(p==='siren'){
         const o=createOsc(650,'sawtooth',master);
@@ -556,34 +573,56 @@
         run();
         addTimer(setInterval(run,4300));
       }
-
-      active=true;
-      if(locationConsent.checked) captureLocation();
-      openSafetySession(p,!low&&notifyContacts.checked);
-      activate.hidden=true;
-      stopBtn.hidden=false;
-      test.disabled=!low;
-      test.textContent=low?'LOW-VOLUME TEST ACTIVE':'TEST AT LOW VOLUME';
-      setStatus((low?'Test':'Alarm')+' active — '+labels[p],true);
-      beginEffects();
-
-      // Re-check context state shortly after tap and recover if browser suspended it.
-      addTimer(setTimeout(()=>{
-        if(ctx&&ctx.state==='suspended'){
-          ctx.resume().then(()=>{
-            setStatus((low?'Test':'Alarm')+' active — '+labels[p],true);
-          }).catch(()=>{
-            setStatus('Audio blocked — tap STOP, raise media volume, then try again',true);
-          });
-        }
-      },100));
-
+      return true;
     }catch(err){
-      console.error(err);
-      stopAlarm();
-      setStatus('Audio could not start on this browser',false);
-      alert('The alarm could not start. Make sure media volume is turned up, then tap ACTIVATE SIREN again.');
+      console.error('Web Audio fallback failed.',err);
+      return false;
     }
+  }
+
+  function startAlarm(low=false){
+    stopAlarm();
+    const p=pattern.value;
+
+    prepareMediaAudio();
+    alarmAudio.volume=low?0.12:Math.max(0.1,Number(volume.value)/100);
+    alarmAudio.muted=false;
+    alarmAudio.currentTime=0;
+
+    let playResult;
+    try{
+      playResult=alarmAudio.play();
+      usingMediaAudio=true;
+    }catch(err){
+      usingMediaAudio=false;
+      startWebAudioFallback(p,low);
+    }
+
+    if(playResult&&playResult.catch){
+      playResult.catch((err)=>{
+        console.warn('HTML audio playback was blocked; using Web Audio fallback.',err);
+        usingMediaAudio=false;
+        if(!ctx) startWebAudioFallback(p,low);
+      });
+    }
+
+    active=true;
+    if(locationConsent.checked) captureLocation();
+    openSafetySession(p,!low&&notifyContacts.checked);
+    activate.hidden=true;
+    stopBtn.hidden=false;
+    test.disabled=!low;
+    test.textContent=low?'LOW-VOLUME TEST ACTIVE':'TEST AT LOW VOLUME';
+    setStatus((low?'Test':'Alarm')+' active — '+labels[p],true);
+    beginEffects();
+
+    addTimer(setTimeout(()=>{
+      const mediaPlaying=!alarmAudio.paused&&!alarmAudio.ended&&alarmAudio.readyState>=2;
+      const fallbackRunning=Boolean(ctx&&ctx.state!=='closed');
+      if(!mediaPlaying&&!fallbackRunning){
+        setStatus('Audio blocked — raise media volume and tap ACTIVATE SIREN again',true);
+      }
+    },450));
   }
 
   activate.addEventListener('click',()=>startAlarm(false),{passive:true});
@@ -666,8 +705,18 @@
       notifyState.textContent='Trusted contacts will be notified on a real siren activation. Low-volume tests never send alerts.';
     }
   });
-  volume.addEventListener('input',()=>volumeLabel.textContent=volume.value+'%');
-  pattern.addEventListener('change',()=>{if(active)stopAlarm()});
+  volume.addEventListener('input',()=>{
+    volumeLabel.textContent=volume.value+'%';
+    if(active&&usingMediaAudio) alarmAudio.volume=Math.max(0.1,Number(volume.value)/100);
+  });
+  pattern.addEventListener('change',()=>{
+    if(active) stopAlarm();
+    prepareMediaAudio();
+  });
+  alarmAudio.addEventListener('error',()=>{
+    console.warn('Alarm WAV could not be loaded; Web Audio fallback will be used.');
+  });
+  prepareMediaAudio();
   window.addEventListener('pagehide',stopAlarm);
 })();
 </script>
