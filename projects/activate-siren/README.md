@@ -2,6 +2,8 @@
 
 Free, browser-based emergency attention alarm.
 
+**Live Website:** https://cozy-crumble-3bd29b.netlify.app/
+
 ## Features
 - One-tap siren
 - Emergency Siren, High-Pitch, Pulse, and SOS patterns
@@ -29,3 +31,15 @@ Import the GitHub repository and use:
 - Publish directory: `.`
 
 [Deploy this project to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/Justintech80s/Justintech80s&create_from_path=projects/activate-siren)
+
+
+## Browser verification
+Automated browser smoke tests run in GitHub Actions with pinned Playwright 1.63.0 against Chromium desktop, Chromium mobile-size, and WebKit mobile-size contexts. They verify:
+
+- siren start/stop UI flow
+- low-volume tests never send trusted-contact notifications
+- explicit geolocation opt-in behavior
+- official-alert rendering
+- service-worker installation and offline reload
+
+Headless browser testing verifies application behavior but cannot prove physical speaker loudness, device mute-switch behavior, or vibration hardware. Those remain physical-device checks.

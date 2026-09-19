@@ -1,7 +1,7 @@
 {
   "name": "activate-siren",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -11,6 +11,10 @@
   },
   "scripts": {
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check netlify/functions/safety-sessions.mjs && node --check netlify/functions/safety-notify.mjs && node --check netlify/functions/official-alerts.mjs && node --check netlify/functions/cleanup-safety-sessions.mjs && node --check netlify/functions/health.mjs"
+    "check": "node --check netlify/functions/safety-sessions.mjs && node --check netlify/functions/safety-notify.mjs && node --check netlify/functions/official-alerts.mjs && node --check netlify/functions/cleanup-safety-sessions.mjs && node --check netlify/functions/health.mjs",
+    "test:browser": "playwright test -c playwright.config.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
   }
 }

@@ -5,12 +5,13 @@ Building intelligent software, AI systems, experimental applications, and intera
 ## Featured Projects
 
 ### Activate Siren — Free Browser Safety Tool
-Activate Siren is a lightweight, one-tap browser alarm designed to attract attention in an emergency without requiring an account, database, or app installation.
+Activate Siren is a lightweight, one-tap browser alarm designed to attract attention in an emergency. The core siren works without an account and can be installed for offline use after the first successful load; optional short-lived Safety Sessions power consented location and trusted-contact features.
 
 **Current features:** emergency siren, high-pitch alarm, pulse alarm, SOS pattern, adjustable volume, low-volume test mode, optional screen flash, and vibration on supported devices.
 
 Source: https://github.com/Justintech80s/Justintech80s/tree/main/projects/activate-siren  
-Netlify-ready: the project can be imported from this same GitHub source for continuous deployment.
+Live Website: https://cozy-crumble-3bd29b.netlify.app/  
+Netlify deployment: connected to this GitHub source for continuous deployment.
 
 > **Safety note:** Activate Siren does not contact 911 or other emergency services and cannot override a device's hardware volume or silent-mode restrictions.
 
