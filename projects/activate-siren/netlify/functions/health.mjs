@@ -46,8 +46,7 @@ export default async (req) => {
       ),
       paypalConfigured: Boolean(
         process.env.PAYPAL_CLIENT_ID &&
-        process.env.PAYPAL_CLIENT_SECRET &&
-        process.env.SIREN_UNLOCK_PRICE
+        process.env.PAYPAL_CLIENT_SECRET
       ),
       paypalWebhookConfigured: Boolean(process.env.PAYPAL_WEBHOOK_ID),
       creatorBypassConfigured: Boolean(
