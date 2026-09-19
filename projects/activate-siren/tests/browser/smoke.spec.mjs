@@ -74,6 +74,126 @@ test.beforeEach(async ({ page }) => {
     });
   });
 
+  let freeUses = 0;
+  let unlimited = false;
+
+  const accessSnapshot = () => ({
+    visitorId: "browser-test-visitor",
+    freeUses,
+    freeUseLimit: 3,
+    remainingFreeUses: unlimited ? null : Math.max(0, 3 - freeUses),
+    creator: false,
+    unlimited,
+    paid: unlimited,
+    locked: !unlimited && freeUses >= 3,
+    unlockedAt: unlimited ? new Date().toISOString() : null,
+  });
+
+  await page.route("**/api/siren-access**", async (route) => {
+    const request = route.request();
+    if (request.method() === "GET") {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ access: accessSnapshot() }),
+      });
+      return;
+    }
+
+    let body = {};
+    try { body = request.postDataJSON() || {}; } catch {}
+
+    if (body.action === "bootstrap") {
+      await route.fulfill({
+        status: 201,
+        contentType: "application/json",
+        body: JSON.stringify({
+          accessToken: "browser-test-visitor.secret-token",
+          access: accessSnapshot(),
+        }),
+      });
+      return;
+    }
+
+    if (body.action === "consume") {
+      if (unlimited) {
+        await route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify({
+            allowed: true,
+            counted: false,
+            paymentRequired: false,
+            access: accessSnapshot(),
+          }),
+        });
+        return;
+      }
+
+      if (freeUses >= 3) {
+        await route.fulfill({
+          status: 402,
+          contentType: "application/json",
+          body: JSON.stringify({
+            allowed: false,
+            paymentRequired: true,
+            access: accessSnapshot(),
+          }),
+        });
+        return;
+      }
+
+      freeUses += 1;
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          allowed: true,
+          counted: true,
+          paymentRequired: false,
+          access: accessSnapshot(),
+        }),
+      });
+      return;
+    }
+
+    await route.fulfill({
+      status: 400,
+      contentType: "application/json",
+      body: JSON.stringify({ error: "Unsupported action" }),
+    });
+  });
+
+  await page.route("**/api/paypal/create-order**", async (route) => {
+    await route.fulfill({
+      status: 201,
+      contentType: "application/json",
+      body: JSON.stringify({
+        orderId: "ORDER-1",
+        status: "CREATED",
+        approvalUrl: "https://www.paypal.com/checkoutnow?token=ORDER-1",
+        amount: { value: "5.00", currency: "USD" },
+      }),
+    });
+  });
+
+  await page.route("**/api/paypal/capture-order**", async (route) => {
+    unlimited = true;
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        unlocked: true,
+        access: accessSnapshot(),
+        paypal: {
+          orderId: "ORDER-1",
+          captureId: "CAPTURE-1",
+          status: "COMPLETED",
+        },
+      }),
+    });
+  });
+
   await page.route("**/api/safety-sessions**", async (route) => {
     if (route.request().method() === "POST") {
       await route.fulfill({
@@ -173,6 +293,31 @@ test("low-volume test starts without trusted-contact notification", async ({ pag
   await expect(page.locator("#statusText")).toContainText("Test active");
   await page.waitForTimeout(100);
   expect(notifyCalls).toBe(0);
+});
+
+test("locks the fourth activation and unlocks after verified PayPal capture", async ({ page }) => {
+  await page.goto("/");
+
+  for (let use = 1; use <= 3; use += 1) {
+    await page.getByRole("button", { name: /ACTIVATE SIREN/i }).click();
+    await expect(page.getByRole("button", { name: /STOP ALARM/i })).toBeVisible();
+    await page.getByRole("button", { name: /STOP ALARM/i }).click();
+  }
+
+  await expect(page.locator("#freeUsesState")).toHaveText("3 / 3 used");
+
+  await page.getByRole("button", { name: /ACTIVATE SIREN/i }).click();
+  await expect(page.locator("#paywall")).toBeVisible();
+  await expect(page.locator("#paywall")).toContainText("$5.00");
+  await expect(page.locator("#statusText")).toContainText("Unlock required");
+
+  await page.goto("/?paypal=return&token=ORDER-1");
+  await expect(page.locator("#freeUsesState")).toHaveText("Unlimited");
+  await expect(page.locator("#accessState")).toContainText("PayPal unlock confirmed");
+  await expect(page.locator("#paywall")).toBeHidden();
+
+  await page.getByRole("button", { name: /ACTIVATE SIREN/i }).click();
+  await expect(page.getByRole("button", { name: /STOP ALARM/i })).toBeVisible();
 });
 
 test("location sharing requires opt-in and works with granted geolocation", async ({ page, context }) => {
