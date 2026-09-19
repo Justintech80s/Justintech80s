@@ -4,10 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090b10">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/activate-siren.svg" type="image/svg+xml">
 <title>Activate Siren</title>
 <meta name="description" content="Free one-tap emergency siren, SOS alarm, screen flash, and vibration tool.">
 <style>
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#080a0f;color:#fff}button,input,select{font:inherit}.page{min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 50% 0%,#251015 0,#0d0f16 45%,#080a0f 100%);transition:background .08s,color .08s}.page.flash-on{background:#fff;color:#090909}.card{width:min(100%,520px);background:rgba(17,20,28,.95);border:1px solid rgba(255,255,255,.09);border-radius:28px;padding:28px;box-shadow:0 24px 70px rgba(0,0,0,.42)}.flash-on .card{background:#b60016}.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#20242f;color:#c8cedb;font-weight:800;font-size:12px;letter-spacing:.08em}h1{font-size:clamp(34px,8vw,56px);line-height:.98;margin:18px 0 12px;letter-spacing:-.04em}.subtitle{color:#aeb6c4;line-height:1.5;margin:0 0 20px}.notice{display:grid;gap:5px;background:#161a24;border:1px solid #2b3140;border-radius:15px;padding:14px 15px;margin-bottom:20px}.notice strong{color:#fff}.notice span{font-size:13px;line-height:1.4;color:#aeb6c4}.activate,.stop{width:100%;min-height:130px;border:0;border-radius:24px;font-size:clamp(23px,6vw,34px);font-weight:950;letter-spacing:-.02em;cursor:pointer;box-shadow:0 12px 30px rgba(190,0,28,.28)}.activate{background:linear-gradient(180deg,#ff173a,#c7001e);color:#fff}.stop{background:#fff;color:#b0001b}.speaker{display:block;font-size:42px;margin-bottom:8px}.test{width:100%;margin-top:12px;border:1px solid #343a48;background:#171b25;color:#e5e9f1;border-radius:14px;padding:13px;font-weight:800;cursor:pointer}.test:disabled{opacity:.45}.controls{display:grid;gap:18px;margin-top:24px}.controls label{font-weight:800;font-size:14px}.controls label>span{float:right;color:#aeb6c4}.controls select{width:100%;margin-top:8px;background:#11151d;color:#fff;border:1px solid #303644;border-radius:12px;padding:13px}.controls input[type=range]{width:100%;margin-top:11px;accent-color:#ee1635}.toggle{display:flex;align-items:center;gap:11px;background:#12161f;border:1px solid #272d39;padding:13px 14px;border-radius:13px}.toggle input{width:20px;height:20px;accent-color:#e81333}.toggle span{float:none!important;color:#e7ebf1!important}.safety-tools{display:grid;gap:14px;margin-top:24px}.tool-card{background:#10141d;border:1px solid #2b3140;border-radius:16px;padding:16px}.tool-card h2{font-size:16px;margin:0 0 7px}.tool-card p{font-size:12px;line-height:1.45;color:#949dac;margin:0 0 12px}.tool-row{display:flex;gap:9px;align-items:center}.tool-row input[type=checkbox]{width:20px;height:20px;accent-color:#e81333}.secondary,.mini{border:1px solid #343a48;background:#171b25;color:#fff;border-radius:11px;font-weight:800;cursor:pointer}.secondary{width:100%;padding:11px;margin-top:10px}.mini{padding:8px 10px}.secondary:disabled{opacity:.45}.privacy-state{font-size:12px;color:#aeb6c4;margin-top:9px}.official-controls{display:grid;grid-template-columns:1fr 110px;gap:8px}.official-controls select,.official-controls input{width:100%;background:#0c1017;color:#fff;border:1px solid #303644;border-radius:10px;padding:10px}.alerts-list{display:grid;gap:10px;margin-top:12px}.alert-card{background:#0b0f16;border:1px solid #333947;border-radius:13px;padding:12px}.alert-card.amber{border-color:#d98a00}.alert-meta{font-size:11px;color:#9da6b5;margin-bottom:6px}.alert-card h3{font-size:15px;margin:0 0 6px}.alert-card p{margin:5px 0;font-size:12px;line-height:1.45;color:#c4cad3}.alert-card a{color:#fff;font-weight:800}.contact-grid{display:grid;grid-template-columns:1fr 110px;gap:8px}.contact-grid input,.contact-grid select{width:100%;background:#0c1017;color:#fff;border:1px solid #303644;border-radius:10px;padding:10px}.contact-grid .wide{grid-column:1/-1}.contact-list{display:grid;gap:8px;margin-top:10px}.contact-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0c1017;border:1px solid #242a35;border-radius:11px;padding:10px}.contact-copy{min-width:0}.contact-copy strong,.contact-copy span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.contact-copy span{color:#929baa;font-size:12px;margin-top:2px}.status{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:22px;padding:11px;border-radius:12px;background:#11151d;color:#aeb6c4;font-size:14px;font-weight:800}.dot{width:9px;height:9px;border-radius:50%;background:#687181}.status.active{color:#fff;background:#5e0916}.status.active .dot{background:#ff2849;box-shadow:0 0 0 6px rgba(255,40,73,.15)}.safety{margin:18px 2px 0;color:#858e9e;font-size:12px;line-height:1.45;text-align:center}@media(max-width:520px){.page{padding:12px}.card{padding:20px;border-radius:22px}.activate,.stop{min-height:120px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#080a0f;color:#fff}button,input,select{font:inherit}.page{min-height:100vh;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 50% 0%,#251015 0,#0d0f16 45%,#080a0f 100%);transition:background .08s,color .08s}.page.flash-on{background:#fff;color:#090909}.card{width:min(100%,520px);background:rgba(17,20,28,.95);border:1px solid rgba(255,255,255,.09);border-radius:28px;padding:28px;box-shadow:0 24px 70px rgba(0,0,0,.42)}.flash-on .card{background:#b60016}.badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#20242f;color:#c8cedb;font-weight:800;font-size:12px;letter-spacing:.08em}h1{font-size:clamp(34px,8vw,56px);line-height:.98;margin:18px 0 12px;letter-spacing:-.04em}.subtitle{color:#aeb6c4;line-height:1.5;margin:0 0 20px}.notice{display:grid;gap:5px;background:#161a24;border:1px solid #2b3140;border-radius:15px;padding:14px 15px;margin-bottom:20px}.notice strong{color:#fff}.notice span{font-size:13px;line-height:1.4;color:#aeb6c4}.app-tools{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:-8px 0 16px}.connection{font-size:12px;color:#aeb6c4;font-weight:800}.install{border:1px solid #343a48;background:#171b25;color:#fff;border-radius:10px;padding:8px 10px;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap}.install[hidden]{display:none}.activate,.stop{width:100%;min-height:130px;border:0;border-radius:24px;font-size:clamp(23px,6vw,34px);font-weight:950;letter-spacing:-.02em;cursor:pointer;box-shadow:0 12px 30px rgba(190,0,28,.28)}.activate{background:linear-gradient(180deg,#ff173a,#c7001e);color:#fff}.stop{background:#fff;color:#b0001b}.speaker{display:block;font-size:42px;margin-bottom:8px}.test{width:100%;margin-top:12px;border:1px solid #343a48;background:#171b25;color:#e5e9f1;border-radius:14px;padding:13px;font-weight:800;cursor:pointer}.test:disabled{opacity:.45}.controls{display:grid;gap:18px;margin-top:24px}.controls label{font-weight:800;font-size:14px}.controls label>span{float:right;color:#aeb6c4}.controls select{width:100%;margin-top:8px;background:#11151d;color:#fff;border:1px solid #303644;border-radius:12px;padding:13px}.controls input[type=range]{width:100%;margin-top:11px;accent-color:#ee1635}.toggle{display:flex;align-items:center;gap:11px;background:#12161f;border:1px solid #272d39;padding:13px 14px;border-radius:13px}.toggle input{width:20px;height:20px;accent-color:#e81333}.toggle span{float:none!important;color:#e7ebf1!important}.safety-tools{display:grid;gap:14px;margin-top:24px}.tool-card{background:#10141d;border:1px solid #2b3140;border-radius:16px;padding:16px}.tool-card h2{font-size:16px;margin:0 0 7px}.tool-card p{font-size:12px;line-height:1.45;color:#949dac;margin:0 0 12px}.tool-row{display:flex;gap:9px;align-items:center}.tool-row input[type=checkbox]{width:20px;height:20px;accent-color:#e81333}.secondary,.mini{border:1px solid #343a48;background:#171b25;color:#fff;border-radius:11px;font-weight:800;cursor:pointer}.secondary{width:100%;padding:11px;margin-top:10px}.mini{padding:8px 10px}.secondary:disabled{opacity:.45}.privacy-state{font-size:12px;color:#aeb6c4;margin-top:9px}.official-controls{display:grid;grid-template-columns:1fr 110px;gap:8px}.official-controls select,.official-controls input{width:100%;background:#0c1017;color:#fff;border:1px solid #303644;border-radius:10px;padding:10px}.alerts-list{display:grid;gap:10px;margin-top:12px}.alert-card{background:#0b0f16;border:1px solid #333947;border-radius:13px;padding:12px}.alert-card.amber{border-color:#d98a00}.alert-meta{font-size:11px;color:#9da6b5;margin-bottom:6px}.alert-card h3{font-size:15px;margin:0 0 6px}.alert-card p{margin:5px 0;font-size:12px;line-height:1.45;color:#c4cad3}.alert-card a{color:#fff;font-weight:800}.contact-grid{display:grid;grid-template-columns:1fr 110px;gap:8px}.contact-grid input,.contact-grid select{width:100%;background:#0c1017;color:#fff;border:1px solid #303644;border-radius:10px;padding:10px}.contact-grid .wide{grid-column:1/-1}.contact-list{display:grid;gap:8px;margin-top:10px}.contact-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0c1017;border:1px solid #242a35;border-radius:11px;padding:10px}.contact-copy{min-width:0}.contact-copy strong,.contact-copy span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.contact-copy span{color:#929baa;font-size:12px;margin-top:2px}.status{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:22px;padding:11px;border-radius:12px;background:#11151d;color:#aeb6c4;font-size:14px;font-weight:800}.dot{width:9px;height:9px;border-radius:50%;background:#687181}.status.active{color:#fff;background:#5e0916}.status.active .dot{background:#ff2849;box-shadow:0 0 0 6px rgba(255,40,73,.15)}.safety{margin:18px 2px 0;color:#858e9e;font-size:12px;line-height:1.45;text-align:center}@media(max-width:520px){.page{padding:12px}.card{padding:20px;border-radius:22px}.activate,.stop{min-height:120px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
@@ -17,6 +22,7 @@
 <h1>Activate Siren</h1>
 <p class="subtitle">A one-tap loud alarm for attracting attention in an emergency.</p>
 <div class="notice"><strong>Turn your device volume up.</strong><span>This site cannot override your phone's hardware volume or silent-mode restrictions.</span></div>
+<div class="app-tools"><span class="connection" id="connectionState">Online • preparing offline alarm</span><button class="install" id="installApp" type="button" hidden>INSTALL APP</button></div>
 <button class="activate" id="activate"><span class="speaker">🔊</span>ACTIVATE SIREN</button>
 <button class="stop" id="stop" hidden>■ STOP ALARM</button>
 <button class="test" id="test">TEST AT LOW VOLUME</button>
@@ -78,13 +84,50 @@
         addContactBtn=$('addContact'),contactsList=$('contactsList'),contactsState=$('contactsState'),
         notifyContacts=$('notifyContacts'),notifyState=$('notifyState'),
         officialMode=$('officialMode'),officialArea=$('officialArea'),
-        refreshAlertsBtn=$('refreshAlerts'),officialState=$('officialState'),officialAlerts=$('officialAlerts');
+        refreshAlertsBtn=$('refreshAlerts'),officialState=$('officialState'),officialAlerts=$('officialAlerts'),
+        connectionState=$('connectionState'),installApp=$('installApp');
 
   let ctx=null,nodes=[],timers=[],flashTimer=null,vibTimer=null,active=false;
   let safetySession=null;
   let trustedContacts=[];
   let lastLocation=null;
+  let installPrompt=null;
+  let offlineShellReady=false;
   const labels={siren:'Emergency Siren',high:'High-Pitch Alarm',pulse:'Pulse Alarm',sos:'SOS Alarm'};
+
+  function updateConnectivity(){
+    if(navigator.onLine){
+      connectionState.textContent=offlineShellReady
+        ? 'Online • offline siren ready'
+        : 'Online • preparing offline alarm';
+    }else{
+      connectionState.textContent=offlineShellReady
+        ? 'Offline • local siren ready'
+        : 'Offline • this page may need one online load first';
+    }
+  }
+
+  async function registerOfflineSupport(){
+    if(!('serviceWorker' in navigator)) {
+      connectionState.textContent=navigator.onLine
+        ? 'Online • offline install not supported by this browser'
+        : 'Offline • service worker not supported';
+      return;
+    }
+    try{
+      const registration=await navigator.serviceWorker.register('./sw.js',{
+        scope:'./',
+        updateViaCache:'none'
+      });
+      await navigator.serviceWorker.ready;
+      offlineShellReady=true;
+      updateConnectivity();
+      registration.update().catch(()=>{});
+    }catch(e){
+      console.warn('Offline support registration failed.',e);
+      updateConnectivity();
+    }
+  }
 
   async function openSafetySession(alarmPattern,shouldNotify=false){
     try{
@@ -546,6 +589,36 @@
   activate.addEventListener('click',()=>startAlarm(false),{passive:true});
   test.addEventListener('click',()=>startAlarm(true),{passive:true});
   stopBtn.addEventListener('click',stopAlarm);
+  window.addEventListener('online',updateConnectivity);
+  window.addEventListener('offline',updateConnectivity);
+  window.addEventListener('beforeinstallprompt',(event)=>{
+    event.preventDefault();
+    installPrompt=event;
+    installApp.hidden=false;
+  });
+  window.addEventListener('appinstalled',()=>{
+    installPrompt=null;
+    installApp.hidden=true;
+    connectionState.textContent=navigator.onLine
+      ? 'Online • app installed and offline siren ready'
+      : 'Offline • installed local siren ready';
+  });
+  installApp.addEventListener('click',async()=>{
+    if(!installPrompt) return;
+    installApp.disabled=true;
+    try{
+      await installPrompt.prompt();
+      await installPrompt.userChoice;
+    }catch(e){
+      console.warn('Install prompt failed.',e);
+    }finally{
+      installPrompt=null;
+      installApp.hidden=true;
+      installApp.disabled=false;
+    }
+  });
+  updateConnectivity();
+  window.addEventListener('load',registerOfflineSupport,{once:true});
   refreshAlertsBtn.addEventListener('click',loadOfficialAlerts);
   officialArea.addEventListener('input',()=>{
     officialArea.value=officialArea.value.toUpperCase().replace(/[^A-Z]/g,'').slice(0,2);

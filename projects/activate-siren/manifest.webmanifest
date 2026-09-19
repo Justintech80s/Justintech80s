@@ -1,0 +1,21 @@
+{
+  "name": "Activate Siren",
+  "short_name": "Siren",
+  "description": "Offline-ready emergency attention alarm with optional Safety Sessions and official public-safety alert lookup.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080a0f",
+  "theme_color": "#090b10",
+  "orientation": "any",
+  "categories": ["utilities"],
+  "icons": [
+    {
+      "src": "icons/activate-siren.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

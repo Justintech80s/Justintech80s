@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Activate Siren">
+  <rect width="512" height="512" rx="112" fill="#090b10"/>
+  <circle cx="256" cy="256" r="170" fill="#151923"/>
+  <path d="M176 316h160l-13-115c-5-46-34-77-67-77s-62 31-67 77l-13 115z" fill="#e41334"/>
+  <path d="M200 301h112l-10-91c-3-29-22-50-46-50s-43 21-46 50l-10 91z" fill="#ff3a57"/>
+  <rect x="154" y="316" width="204" height="43" rx="21.5" fill="#f4f6fa"/>
+  <path d="M256 83V50M151 124l-24-24M361 124l24-24M113 226H79M399 226h34" stroke="#ffffff" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="256" cy="224" r="30" fill="#ffffff" opacity=".9"/>
+</svg>

@@ -12,6 +12,8 @@ const sessions = read("netlify/functions/safety-sessions.mjs");
 const notify = read("netlify/functions/safety-notify.mjs");
 const official = read("netlify/functions/official-alerts.mjs");
 const cleanup = read("netlify/functions/cleanup-safety-sessions.mjs");
+const manifest = JSON.parse(read("manifest.webmanifest"));
+const serviceWorker = read("sw.js");
 
 test("browser script parses", () => {
   const match = html.match(/<script>([\s\S]*?)<\/script>/);
@@ -93,4 +95,26 @@ test("expired safety-session data has a deletion path", () => {
 test("safety notices remain visible", () => {
   assert.match(html, /does not contact emergency services/i);
   assert.match(html, /cannot create, issue, modify, or cancel an AMBER Alert/i);
+});
+
+
+test("offline shell is registered without caching emergency APIs", () => {
+  assert.match(html, /rel="manifest" href="manifest\.webmanifest"/);
+  assert.match(html, /serviceWorker\.register\('\.\/sw\.js'/);
+  assert.match(serviceWorker, /url\.pathname\.startsWith\("\/api\/"\)/);
+  assert.match(serviceWorker, /caches\.match\("\.\/index\.html"\)/);
+});
+
+test("web app manifest supports standalone installation", () => {
+  assert.equal(manifest.name, "Activate Siren");
+  assert.equal(manifest.display, "standalone");
+  assert.equal(manifest.start_url, "./");
+  assert.ok(Array.isArray(manifest.icons) && manifest.icons.length > 0);
+  assert.equal(manifest.icons[0].type, "image/svg+xml");
+  assert.equal(manifest.icons[0].sizes, "any");
+});
+
+test("offline support never changes the local-alarm independence rule", () => {
+  assert.match(html, /Offline • local siren ready/);
+  assert.match(html, /does not contact emergency services/i);
 });
