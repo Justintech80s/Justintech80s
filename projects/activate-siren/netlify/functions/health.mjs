@@ -31,6 +31,8 @@ export default async (req) => {
       consentedLocation: true,
       trustedContacts: true,
       officialAlerts: true,
+      sirenAccessGate: true,
+      paypalUnlockBackend: true,
     },
     providers: {
       emailConfigured: Boolean(
@@ -41,6 +43,15 @@ export default async (req) => {
         process.env.TWILIO_ACCOUNT_SID &&
         process.env.TWILIO_AUTH_TOKEN &&
         process.env.TWILIO_FROM_NUMBER
+      ),
+      paypalConfigured: Boolean(
+        process.env.PAYPAL_CLIENT_ID &&
+        process.env.PAYPAL_CLIENT_SECRET &&
+        process.env.SIREN_UNLOCK_PRICE
+      ),
+      paypalWebhookConfigured: Boolean(process.env.PAYPAL_WEBHOOK_ID),
+      creatorBypassConfigured: Boolean(
+        process.env.ACTIVATE_SIREN_CREATOR_VISITOR_ID
       ),
     },
   });
