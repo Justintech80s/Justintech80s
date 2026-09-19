@@ -135,3 +135,29 @@ A site can configure email only, SMS only, or both. The notification endpoint re
 ## Reliability
 
 The siren, flash, and vibration features remain local to the browser. Failure of the backend, location service, or contact synchronization must not prevent the siren from sounding.
+
+
+## Official public-safety alerts
+
+`GET /api/official-alerts`
+
+This is a read-only redistribution layer for active government alerts.
+
+Query parameters:
+
+- `mode=amber` — returns active `Child Abduction Emergency` alerts only.
+- `mode=all` — returns a curated set of active non-weather public-safety events.
+- `area=MA` — optional two-letter state or territory filter.
+
+The current live source is the National Weather Service Alerts API using CAP-compatible alert data.
+
+Important boundaries:
+
+- Only alerts with status `Actual` are returned.
+- Test and exercise messages are filtered out.
+- Expired messages are filtered out.
+- Activate Siren cannot originate, edit, cancel, or impersonate an official alert.
+- The public FEMA IPAWS archive is not used as the live source because it is intentionally delayed.
+- This first integration should not be treated as a guarantee that every AMBER Alert issued anywhere in the United States will appear in this feed; the UI identifies the government source for the alerts it does receive.
+
+The backend sends a distinct User-Agent to the NWS API and caches successful responses briefly to reduce unnecessary load.
