@@ -86,7 +86,8 @@ Contacts are session-scoped. Automatic SMS or email delivery is not part of this
 - Location is never requested unless the user enables sharing.
 - Location is rejected by the API unless `consent: true` is present.
 - Trusted contacts are capped at three.
-- Safety Sessions expire automatically.
+- Safety Sessions become inaccessible after their expiration timestamp.
+- An hourly scheduled cleanup function physically deletes expired Safety Session blobs, including any location and trusted-contact data.
 - Browser contact preferences are stored only in `sessionStorage`, not permanent local storage.
 - The bearer token is required to read or modify the server-side session.
 
