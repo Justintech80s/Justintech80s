@@ -140,8 +140,9 @@ test("loads the emergency interface and starts/stops the local siren", async ({ 
     src: audio.currentSrc || audio.src,
     readyState: audio.readyState
   }));
-  expect(mediaState.src).toContain("/audio/siren-44k-v2.wav");
+  expect(mediaState.src).toMatch(/\/audio\/siren-(?:ios-v3\.m4a|fallback-v3\.mp3|44k-v2\.wav)$/);
   expect(mediaState.readyState).toBeGreaterThanOrEqual(2);
+  await expect(page.locator("#audioDiagnostic")).toContainText(/browser audio (?:is playing|is advancing)|accepted audio playback/i);
 
   await page.getByRole("button", { name: /STOP ALARM/i }).click();
   await expect(page.getByRole("button", { name: /ACTIVATE SIREN/i })).toBeVisible();

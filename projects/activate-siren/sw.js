@@ -1,4 +1,4 @@
-const CACHE_NAME = "activate-siren-shell-v3";
+const CACHE_NAME = "activate-siren-shell-v4";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -7,7 +7,15 @@ const APP_SHELL = [
   "./audio/siren-44k-v2.wav",
   "./audio/high-44k-v2.wav",
   "./audio/pulse-44k-v2.wav",
-  "./audio/sos-44k-v2.wav"
+  "./audio/sos-44k-v2.wav",
+  "./audio/siren-ios-v3.m4a",
+  "./audio/high-ios-v3.m4a",
+  "./audio/pulse-ios-v3.m4a",
+  "./audio/sos-ios-v3.m4a",
+  "./audio/siren-fallback-v3.mp3",
+  "./audio/high-fallback-v3.mp3",
+  "./audio/pulse-fallback-v3.mp3",
+  "./audio/sos-fallback-v3.mp3"
 ];
 
 self.addEventListener("install", (event) => {

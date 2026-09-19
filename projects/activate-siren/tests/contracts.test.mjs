@@ -132,19 +132,28 @@ test("deployment health endpoint exposes readiness without secrets", () => {
 });
 
 
-test("real WAV alarm media is the primary playback path", () => {
+test("native media alarm is primary with Web Audio fallback", () => {
   assert.match(html, /id="alarmAudio"/);
-  assert.match(html, /src="\.\/audio\/siren-44k-v2\.wav"/);
+  assert.match(html, /siren-ios-v3\.m4a/);
+  assert.match(html, /siren-fallback-v3\.mp3/);
+  assert.match(html, /siren-44k-v2\.wav/);
   assert.match(html, /alarmAudio\.play\(\)/);
   assert.match(html, /startWebAudioFallback/);
-  for (const file of ["siren-44k-v2.wav", "high-44k-v2.wav", "pulse-44k-v2.wav", "sos-44k-v2.wav"]) {
+  assert.match(html, /browser audio is advancing/);
+  for (const file of [
+    "siren-ios-v3.m4a",
+    "siren-fallback-v3.mp3",
+    "siren-44k-v2.wav"
+  ]) {
     assert.match(serviceWorker, new RegExp("audio/" + file.replace(".", "\\.")));
   }
 });
 
 
-test("iPhone-compatible audio uses versioned 44.1 kHz 16-bit WAV assets", () => {
-  assert.match(html, /siren-44k-v2\.wav/);
-  assert.match(serviceWorker, /activate-siren-shell-v3/);
-  assert.match(html, /Vibration unavailable in this browser/);
+test("iPhone audio prefers AAC and disables unsupported vibration", () => {
+  assert.match(html, /audio\/mp4/);
+  assert.match(html, /siren-ios-v3\.m4a/);
+  assert.match(serviceWorker, /activate-siren-shell-v4/);
+  assert.match(html, /iPhone web browsers cannot trigger vibration/);
+  assert.match(html, /Silent Mode off/);
 });

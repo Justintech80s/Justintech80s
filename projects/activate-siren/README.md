@@ -6,7 +6,7 @@ Free, browser-based emergency attention alarm.
 
 ## Features
 - One-tap siren
-- Real WAV alarm playback as the primary mobile-compatible audio path, with Web Audio fallback
+- Native media alarm playback with AAC/M4A first on iPhone, MP3 fallback, WAV fallback, and Web Audio fallback
 - Emergency Siren, High-Pitch, Pulse, and SOS patterns
 - Adjustable volume
 - Low-volume test mode
@@ -52,3 +52,9 @@ The production alarm now uses pre-generated WAV media files as the primary playb
 
 ## iPhone audio hardening
 The iPhone-focused audio revision uses cache-busted, standard 44.1 kHz 16-bit mono PCM WAV assets. The service-worker cache generation was advanced so previously cached low-rate alarm files are discarded. The UI also disables the vibration option when the browser does not expose the Vibration API.
+
+
+## iPhone web limitations
+The iPhone path now prefers AAC/M4A, then MP3, then WAV, all initiated directly from the user tap. The interface reports whether the browser's media playback clock actually advances. If playback advances but no sound is audible, the remaining issue is outside page-level playback logic (for example Silent Mode, an embedded WKWebView, media-volume level, Bluetooth, or AirPlay routing).
+
+A normal website cannot force iPhone vibration because iOS WebKit does not expose the Vibration API. On iPhone the vibration control is therefore disabled rather than shown as functional.
