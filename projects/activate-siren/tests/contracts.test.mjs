@@ -12,6 +12,7 @@ const sessions = read("netlify/functions/safety-sessions.mjs");
 const notify = read("netlify/functions/safety-notify.mjs");
 const official = read("netlify/functions/official-alerts.mjs");
 const cleanup = read("netlify/functions/cleanup-safety-sessions.mjs");
+const health = read("netlify/functions/health.mjs");
 const manifest = JSON.parse(read("manifest.webmanifest"));
 const serviceWorker = read("sw.js");
 
@@ -117,4 +118,15 @@ test("web app manifest supports standalone installation", () => {
 test("offline support never changes the local-alarm independence rule", () => {
   assert.match(html, /Offline • local siren ready/);
   assert.match(html, /does not contact emergency services/i);
+});
+
+
+test("deployment health endpoint exposes readiness without secrets", () => {
+  assert.match(health, /path: "\/api\/health"/);
+  assert.match(health, /emailConfigured/);
+  assert.match(health, /smsConfigured/);
+  assert.match(health, /process\.env\.RESEND_API_KEY/);
+  assert.match(health, /process\.env\.TWILIO_ACCOUNT_SID/);
+  assert.doesNotMatch(health, /apiKey\s*:\s*process\.env/);
+  assert.doesNotMatch(health, /authToken\s*:\s*process\.env/);
 });
