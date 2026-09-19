@@ -78,7 +78,48 @@ Up to three contacts can be attached to the active Safety Session:
 }
 ```
 
-Contacts are session-scoped. Automatic SMS or email delivery is not part of this milestone and is not implied by storing a trusted contact.
+Contacts are session-scoped.
+
+## Trusted-contact notification delivery
+
+`POST /api/safety-notify?id=<session-id>`
+
+Requires the Safety Session bearer token.
+
+The endpoint never accepts arbitrary recipients. It reads the already-authenticated `trustedContacts` stored on the active Safety Session and attempts delivery only to those contacts.
+
+Delivery behavior:
+
+- Email contacts use Resend.
+- Phone contacts use Twilio SMS.
+- Notification delivery is opt-in in the browser.
+- Low-volume alarm tests never send trusted-contact notifications.
+- A Safety Session must still be active.
+- Repeated email requests use a stable Resend idempotency key.
+- SMS delivery uses a per-contact session lock to reduce duplicate sends.
+- A network failure with an uncertain SMS outcome is not retried automatically.
+- Each session allows a maximum of three delivery attempts.
+
+If consented location was already attached to the Safety Session before notification delivery, the trusted-contact message can include a maps link. No location is included unless the session contains explicitly consented location data.
+
+### Netlify environment variables
+
+Set these as Netlify site environment variables, not in GitHub and not in `netlify.toml`.
+
+For email delivery:
+
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+
+For SMS delivery:
+
+- `TWILIO_ACCOUNT_SID`
+- `TWILIO_AUTH_TOKEN`
+- `TWILIO_FROM_NUMBER`
+
+A site can configure email only, SMS only, or both. The notification endpoint reports `503` when none of the providers required by the attached contacts are configured.
+
+`RESEND_FROM_EMAIL` must be a sender Resend allows the account to use. `TWILIO_FROM_NUMBER` must be a Twilio-capable sender/number appropriate for the destination and applicable carrier requirements.
 
 ## Privacy and retention
 
